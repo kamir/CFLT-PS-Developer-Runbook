@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-config
+  namespace: confluent-apps
+  labels:
+    app.kubernetes.io/part-of: confluent-java-toolkit
+data:
+  # Non-secret Kafka configuration — managed via GitOps
+  bootstrap.servers: "<CONFLUENT_CLOUD_BOOTSTRAP_URL>"
+  schema.registry.url: "<CONFLUENT_CLOUD_SR_URL>"
+  security.protocol: "SASL_SSL"
+  sasl.mechanism: "PLAIN"

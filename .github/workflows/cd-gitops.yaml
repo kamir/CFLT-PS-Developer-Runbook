@@ -1,0 +1,102 @@
+# ==============================================================================
+# CD Pipeline — GitOps promotion (triggered after CI succeeds)
+# ==============================================================================
+name: CD — GitOps Deploy
+
+on:
+  workflow_run:
+    workflows: ["CI — Build & Test"]
+    types: [completed]
+    branches: [develop, "release/**"]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository_owner }}/confluent-ps
+
+jobs:
+  # ------------------------------------------------------------------
+  # Promote to QA (automatic on develop)
+  # ------------------------------------------------------------------
+  promote-qa:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update QA image tags
+        run: |
+          SHA=${{ github.event.workflow_run.head_sha }}
+          cd k8s/overlays/qa
+          # Update kustomization with new image tag
+          cat >> kustomization.yaml <<EOF
+
+          images:
+            - name: registry.example.com/confluent-ps/producer-consumer-app
+              newName: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/producer-consumer-app
+              newTag: ${SHA}
+            - name: registry.example.com/confluent-ps/kstreams-app
+              newName: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/kstreams-app
+              newTag: ${SHA}
+          EOF
+
+      - name: Commit & push QA overlay
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add k8s/overlays/qa/
+          git commit -m "chore(qa): promote image ${{ github.event.workflow_run.head_sha }}"
+          git push
+
+  # ------------------------------------------------------------------
+  # Promote to PROD (PR-based — requires approval, PCI-DSS Req 6.4)
+  # ------------------------------------------------------------------
+  promote-prod:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      startsWith(github.event.workflow_run.head_branch, 'release/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update PROD image tags
+        run: |
+          SHA=${{ github.event.workflow_run.head_sha }}
+          cd k8s/overlays/prod
+          cat >> kustomization.yaml <<EOF
+
+          images:
+            - name: registry.example.com/confluent-ps/producer-consumer-app
+              newName: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/producer-consumer-app
+              newTag: ${SHA}
+            - name: registry.example.com/confluent-ps/kstreams-app
+              newName: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/kstreams-app
+              newTag: ${SHA}
+          EOF
+
+      - name: Create PROD promotion PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "release: promote ${{ github.event.workflow_run.head_sha }} to PROD"
+          body: |
+            ## Production Deployment Request
+
+            **Source branch:** ${{ github.event.workflow_run.head_branch }}
+            **Image SHA:** ${{ github.event.workflow_run.head_sha }}
+
+            ### PCI-DSS Checklist
+            - [ ] Security scan passed (Trivy)
+            - [ ] QA sign-off obtained
+            - [ ] Change management ticket filed
+            - [ ] Rollback plan documented
+
+            ### Approval Required
+            This PR requires approval from the **operations team** before merge.
+          branch: "deploy/prod-${{ github.event.workflow_run.head_sha }}"
+          labels: production,pci-dss
+          reviewers: ops-team

@@ -1,0 +1,39 @@
+# ==============================================================================
+# Multi-stage Dockerfile for Kafka Streams App
+# Optimized for PCI-DSS: minimal base image, non-root user
+# ==============================================================================
+
+# --- Stage 1: Build ---
+FROM eclipse-temurin:17-jdk-alpine AS builder
+WORKDIR /build
+
+COPY pom.xml ./
+COPY producer-consumer-app/pom.xml producer-consumer-app/
+COPY kstreams-app/pom.xml kstreams-app/
+
+RUN apk add --no-cache maven \
+    && mvn dependency:go-offline -pl kstreams-app -am -B
+
+COPY kstreams-app/src kstreams-app/src
+
+RUN mvn package -pl kstreams-app -am -DskipTests -B
+
+# --- Stage 2: Runtime ---
+FROM eclipse-temurin:17-jre-alpine
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+WORKDIR /app
+
+COPY --from=builder /build/kstreams-app/target/*-shaded.jar app.jar
+
+# State store + logs directory
+RUN mkdir -p /var/kafka-streams /app/logs \
+    && chown -R appuser:appgroup /var/kafka-streams /app
+
+USER appuser
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD ["java", "-cp", "app.jar", "io.confluent.ps.health.HealthCheck"]
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

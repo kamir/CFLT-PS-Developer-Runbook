@@ -1,24 +1,52 @@
-# Compiled class file
+# ==============================================================================
+# Confluent Java Toolkit — .gitignore
+# ==============================================================================
+
+# --- Java / Maven ---
 *.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
 *.nar
 *.ear
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# --- IDE ---
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*~
+
+# --- Logs ---
+*.log
+logs/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Build artifacts ---
 *.zip
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# --- JVM crash logs ---
 hs_err_pid*
 replay_pid*
+
+# --- Kafka Streams state stores (local dev) ---
+/tmp/kafka-streams/
+
+# --- Docker ---
+docker-compose.override.yml
+
+# --- Secrets — NEVER commit credentials (PCI-DSS) ---
+*.env
+.env.*
+credentials.properties
+*-credentials.yaml
+!k8s/base/secrets.yaml

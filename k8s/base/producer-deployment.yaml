@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-producer
+  namespace: confluent-apps
+  labels:
+    app: payment-producer
+    app.kubernetes.io/name: payment-producer
+    app.kubernetes.io/part-of: confluent-java-toolkit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-producer
+  template:
+    metadata:
+      labels:
+        app: payment-producer
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9404"
+    spec:
+      serviceAccountName: confluent-app-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: payment-producer
+          image: registry.example.com/confluent-ps/producer-consumer-app:1.0.0-SNAPSHOT
+          args: ["produce"]
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "768Mi"
+          env:
+            - name: APP_ENV
+              value: "prod"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap.servers
+            - name: KAFKA_SASL_JAAS_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-credentials
+                  key: sasl.jaas.config
+            - name: SCHEMA_REGISTRY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: schema.registry.url
+            - name: SCHEMA_REGISTRY_USER_INFO
+              valueFrom:
+                secretKeyRef:
+                  name: schema-registry-credentials
+                  key: basic.auth.user.info
+          livenessProbe:
+            exec:
+              command: ["sh", "-c", "pgrep -f 'java.*app.jar'"]
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "pgrep -f 'java.*app.jar'"]
+            initialDelaySeconds: 15
+            periodSeconds: 10
+      restartPolicy: Always

@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-detection
+  namespace: confluent-apps
+  labels:
+    app: fraud-detection
+    app.kubernetes.io/name: fraud-detection
+    app.kubernetes.io/part-of: confluent-java-toolkit
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fraud-detection
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: fraud-detection
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9404"
+    spec:
+      serviceAccountName: confluent-app-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: fraud-detection
+          image: registry.example.com/confluent-ps/kstreams-app:1.0.0-SNAPSHOT
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          env:
+            - name: APP_ENV
+              value: "prod"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: bootstrap.servers
+            - name: KAFKA_SASL_JAAS_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: kafka-credentials
+                  key: sasl.jaas.config
+            - name: SCHEMA_REGISTRY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: kafka-config
+                  key: schema.registry.url
+            - name: SCHEMA_REGISTRY_USER_INFO
+              valueFrom:
+                secretKeyRef:
+                  name: schema-registry-credentials
+                  key: basic.auth.user.info
+          volumeMounts:
+            - name: state-store
+              mountPath: /var/kafka-streams
+          livenessProbe:
+            exec:
+              command: ["sh", "-c", "pgrep -f 'java.*app.jar'"]
+            initialDelaySeconds: 45
+            periodSeconds: 30
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "pgrep -f 'java.*app.jar'"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      volumes:
+        - name: state-store
+          emptyDir:
+            sizeLimit: 5Gi
+      restartPolicy: Always
