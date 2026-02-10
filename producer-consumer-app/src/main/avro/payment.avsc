@@ -1,0 +1,54 @@
+{
+  "namespace": "io.confluent.ps.model",
+  "type": "record",
+  "name": "Payment",
+  "doc": "Payment event for PCI-DSS compliant transaction processing",
+  "fields": [
+    {
+      "name": "transaction_id",
+      "type": "string",
+      "doc": "Unique transaction identifier (UUID)"
+    },
+    {
+      "name": "card_number_masked",
+      "type": "string",
+      "doc": "Masked card number — only last 4 digits visible (PCI-DSS compliant)"
+    },
+    {
+      "name": "amount",
+      "type": "double",
+      "doc": "Transaction amount in cents"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "ISO 4217 currency code",
+      "default": "USD"
+    },
+    {
+      "name": "merchant_id",
+      "type": "string",
+      "doc": "Merchant identifier"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "doc": "Event time in epoch milliseconds",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "PaymentStatus",
+        "symbols": ["PENDING", "APPROVED", "DECLINED", "FLAGGED"]
+      },
+      "doc": "Current payment status"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "doc": "Geographic region of the transaction"
+    }
+  ]
+}

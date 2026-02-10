@@ -1,0 +1,40 @@
+# ==============================================================================
+# NetworkPolicy — PCI-DSS Req 1: Restrict network access
+# Only allow egress to Confluent Cloud endpoints (ports 9092, 443)
+# ==============================================================================
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: confluent-app-netpol
+  namespace: confluent-apps
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: confluent-java-toolkit
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow Prometheus scraping
+    - from: []
+      ports:
+        - protocol: TCP
+          port: 9404
+  egress:
+    # Allow DNS resolution
+    - to: []
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Allow Confluent Cloud Kafka (SASL_SSL)
+    - to: []
+      ports:
+        - protocol: TCP
+          port: 9092
+    # Allow Confluent Cloud Schema Registry + API (HTTPS)
+    - to: []
+      ports:
+        - protocol: TCP
+          port: 443

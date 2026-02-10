@@ -1,0 +1,103 @@
+# ==============================================================================
+# CI Pipeline — runs on every push / PR (Git-Flow branches)
+# ==============================================================================
+name: CI — Build & Test
+
+on:
+  push:
+    branches: [main, develop, "release/**", "hotfix/**"]
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  JAVA_VERSION: "17"
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository_owner }}/confluent-ps
+
+jobs:
+  # ------------------------------------------------------------------
+  # 1. Build & Unit Test
+  # ------------------------------------------------------------------
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+          cache: maven
+
+      - name: Build & Test
+        run: mvn verify -B --no-transfer-progress
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: "**/target/surefire-reports/*.xml"
+
+  # ------------------------------------------------------------------
+  # 2. Container image build (only on develop / release branches)
+  # ------------------------------------------------------------------
+  docker:
+    needs: build
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app:
+          - name: producer-consumer-app
+            dockerfile: docker/Dockerfile.producer-consumer
+          - name: kstreams-app
+            dockerfile: docker/Dockerfile.kstreams
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+          cache: maven
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push image (${{ matrix.app.name }})
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.app.dockerfile }}
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.app.name }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.app.name }}:latest
+
+  # ------------------------------------------------------------------
+  # 3. Security scan (PCI-DSS Req 6.3)
+  # ------------------------------------------------------------------
+  security:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          severity: CRITICAL,HIGH
+          exit-code: 1
