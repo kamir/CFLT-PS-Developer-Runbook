@@ -77,11 +77,11 @@ This runbook describes the complete lifecycle for building, testing, and operati
 | **Git** | 2.40+ | Version control |
 | **gh** | 2.x | GitHub CLI for PRs |
 
-This toolkit is the minimum footprint required to build, run, and troubleshoot the Java services and their supporting infrastructure. We standardize on Eclipse Temurin 17+ as the OpenJDK distribution to keep builds aligned with a TCK-tested runtime. citeturn3search1 Maven is the canonical build system for Java projects and provides consistent dependency resolution, compilation, and test lifecycles via the project object model (POM). citeturn3search0
+This toolkit is the minimum footprint required to build, run, and troubleshoot the Java services and their supporting infrastructure. We standardize on Eclipse Temurin 17+ as the OpenJDK distribution to keep builds aligned with a TCK-tested runtime. Maven is the canonical build system for Java projects and provides consistent dependency resolution, compilation, and test lifecycles via the project object model (POM). 
 
-For local infrastructure, Docker Engine provides the container runtime and API used by the CLI to build and run services, while Docker Compose v2 (Compose Specification) defines multi-container orchestration in a single declarative file. citeturn4search0turn4search2 Operationally, Kubernetes access relies on `kubectl` for interacting with cluster APIs, and `kustomize` for environment overlays without templating, which mirrors the GitOps model used downstream. citeturn1search0turn3search8
+For local infrastructure, Docker Engine provides the container runtime and API used by the CLI to build and run services, while Docker Compose v2 (Compose Specification) defines multi-container orchestration in a single declarative file.   Operationally, Kubernetes access relies on `kubectl` for interacting with cluster APIs, and `kustomize` for environment overlays without templating, which mirrors the GitOps model used downstream. 
 
-For Kafka-level diagnostics, `kcat` (formerly kafkacat) is the low-level CLI used to produce, consume, and inspect topics outside the application runtime. citeturn2search5 Git provides distributed version control for tracking code changes, and `gh` is the GitHub CLI for pull-request workflows and repository automation. citeturn2search4turn2search2
+For Kafka-level diagnostics, `kcat` (formerly kafkacat) is the low-level CLI used to produce, consume, and inspect topics outside the application runtime. Git provides distributed version control for tracking code changes, and `gh` is the GitHub CLI for pull-request workflows and repository automation.  
 
 ### 2.2 Confluent Cloud Access
 
@@ -92,9 +92,9 @@ For Kafka-level diagnostics, `kcat` (formerly kafkacat) is the low-level CLI use
 | Schema Registry | Shared | Shared | Dedicated |
 | Topics | Self-service | Scripted (IaC) | GitOps (PR) |
 
-These tiers reflect a shift from fast iteration in DEV toward controlled change in QA/PROD. Confluent Cloud is a fully managed Kafka service that includes core streaming components like Kafka and Schema Registry, so we treat the environment as a managed control plane with increasing isolation and stricter change control as you move toward production. citeturn4search3
+These tiers reflect a shift from fast iteration in DEV toward controlled change in QA/PROD. Confluent Cloud is a fully managed Kafka service that includes core streaming components like Kafka and Schema Registry, so we treat the environment as a managed control plane with increasing isolation and stricter change control as you move toward production.  
 
-API key ownership and lifecycle are also scaled by environment. Confluent Cloud API keys authenticate to specific resources and are scoped by user or service account, so DEV favors developer-managed keys while QA/PROD shift to CI/CD and vault-managed credentials to enforce rotation and least-privilege access. citeturn5search0 The shared vs. dedicated Schema Registry split follows the same pattern: shared registries are acceptable for development velocity, while dedicated registries reduce blast radius and align with release governance in production. Topic creation moves from self-service (DEV) to scripted IaC (QA) and finally to GitOps PRs (PROD) to ensure auditability and approval checkpoints in higher environments.
+API key ownership and lifecycle are also scaled by environment. Confluent Cloud API keys authenticate to specific resources and are scoped by user or service account, so DEV favors developer-managed keys while QA/PROD shift to CI/CD and vault-managed credentials to enforce rotation and least-privilege access. The shared vs. dedicated Schema Registry split follows the same pattern: shared registries are acceptable for development velocity, while dedicated registries reduce blast radius and align with release governance in production. Topic creation moves from self-service (DEV) to scripted IaC (QA) and finally to GitOps PRs (PROD) to ensure auditability and approval checkpoints in higher environments.
 
 ### 2.3 PCI-DSS Requirements Summary
 
@@ -111,7 +111,7 @@ API key ownership and lifecycle are also scaled by environment. Confluent Cloud 
 | **Req 11** | Regular testing | Automated tests in CI |
 | **Req 12** | Security policy | This runbook + change management |
 
-PCI DSS is the baseline, industry-wide security standard for protecting account data, and PCI DSS v4.0 was published by the PCI Security Standards Council to address emerging threats and modern architectures. citeturn6search3 The table above maps high-level PCI DSS requirements to concrete platform controls in this runbook so developers can see where compliance is implemented in day-to-day engineering practices. For example, segmentation (Req 1) is enforced through Kubernetes NetworkPolicies and VPC peering, encryption in transit (Req 4) is achieved via SASL_SSL to Confluent Cloud, and secure development (Req 6) is enforced by CI scans and mandatory code review. These mappings are a practical bridge between PCI DSS policy and the operational controls used across DEV, QA, and PROD.
+PCI DSS is the baseline, industry-wide security standard for protecting account data, and PCI DSS v4.0 was published by the PCI Security Standards Council to address emerging threats and modern architectures. The table above maps high-level PCI DSS requirements to concrete platform controls in this runbook so developers can see where compliance is implemented in day-to-day engineering practices. For example, segmentation (Req 1) is enforced through Kubernetes NetworkPolicies and VPC peering, encryption in transit (Req 4) is achieved via SASL_SSL to Confluent Cloud, and secure development (Req 6) is enforced by CI scans and mandatory code review. These mappings are a practical bridge between PCI DSS policy and the operational controls used across DEV, QA, and PROD.
 ---
 
 ## 3. Repository Structure
