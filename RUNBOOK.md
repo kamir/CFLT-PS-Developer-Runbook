@@ -112,6 +112,7 @@ API key ownership and lifecycle are also scaled by environment. Confluent Cloud 
 | **Req 12** | Security policy | This runbook + change management |
 
 PCI DSS is the baseline, industry-wide security standard for protecting account data, and PCI DSS v4.0 was published by the PCI Security Standards Council to address emerging threats and modern architectures. The table above maps high-level PCI DSS requirements to concrete platform controls in this runbook so developers can see where compliance is implemented in day-to-day engineering practices. For example, segmentation (Req 1) is enforced through Kubernetes NetworkPolicies and VPC peering, encryption in transit (Req 4) is achieved via SASL_SSL to Confluent Cloud, and secure development (Req 6) is enforced by CI scans and mandatory code review. These mappings are a practical bridge between PCI DSS policy and the operational controls used across DEV, QA, and PROD.
+
 ---
 
 ## 3. Repository Structure
