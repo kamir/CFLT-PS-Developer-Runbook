@@ -855,10 +855,97 @@ curl -X POST \
 
 3. **Reference the RUNBOOK.md** — it's your daily companion
 
-4. **Bookmark the tools:**
-   - [Confluent Cloud Console](https://confluent.cloud)
-   - [Confluent CLI Docs](https://docs.confluent.io/confluent-cli/current/)
-   - [Kafka Streams Developer Guide](https://kafka.apache.org/documentation/streams/)
+4. **Continue to Level 201** — master the full tool suite
+
+---
+
+<!-- _class: divider -->
+
+# What's Next?
+# The Full Curriculum
+
+---
+
+# The Learning Path — 4 Levels, 19 Blocks, 17 Sporen
+
+```
+Level 101                Level 201              Level 301              Level 401
+"Sich die Sporen         "Das Werkzeug          "Die Werkstatt         "Die Kunst der
+ verdienen"               kennen"                meistern"              Optimierung"
+
+ 1 day                    half day               1 day                  1 day
+ Blocks 1-6              Blocks 7-10            Blocks 11-15           Blocks 16-19
+ 6 Sporen                4 Sporen               5 Sporen               4 Sporen
+
+ Meister-Sporn           Werkzeug-Meister       Werkstatt-Meister      Grossmeister
+```
+
+---
+
+# Level 201 — Das Werkzeug kennen (half day)
+
+| Block | Sporn | Tools |
+|---|---|---|
+| **7** | Schmied-Sporn | **Make** + **Act** — build automation |
+| **8** | Ritter-Sporn | **kind** + **Helm** — local K8s |
+| **9** | Prüfer-Sporn | **k6** + **ngrok** + **Shadow Traffic** |
+| **10** | Melder-Sporn | **Confluent CLI** + **Kafka CLI** + **kcat** mastery |
+
+Every tool with: intro, repo link, role map, and runnable example.
+
+See: `docs/workshop/LEVEL-201.md` + `docs/workshop/TOOLS.md`
+
+---
+
+# Level 301 — Die Werkstatt meistern (1 day)
+
+| Block | Sporn | Deep Dive |
+|---|---|---|
+| **11** | Pipeline-Sporn | CI/CD engineering with Make + Act |
+| **12** | Strategen-Sporn | K8s deployment: kind + Helm + Kustomize |
+| **13** | Lastprüfer-Sporn | k6 load testing + shadow traffic design |
+| **14** | Kommandant-Sporn | Confluent Cloud automation + ops runbooks |
+| **15** | General-Sporn | End-to-end release simulation |
+
+Integrate all tools into team workflows, CI/CD, and release planning.
+
+See: `docs/workshop/LEVEL-301.md`
+
+---
+
+# Level 401 — Die Kunst der Optimierung (1 day)
+
+| Block | Sporn | Engineering |
+|---|---|---|
+| **16** | Tuner-Sporn | Producer/consumer throughput tuning |
+| **17** | Ingenieur-Sporn | **RocksDB** configuration deep dive |
+| **18** | Architekt-Sporn | JVM tuning + K8s resource optimization |
+| **19** | Feldherr-Sporn | Production load testing + capacity planning |
+
+The engineering heart: RocksDB block cache, write buffers, compaction,
+JVM G1GC tuning, off-heap memory budgeting, and production readiness.
+
+See: `docs/workshop/LEVEL-401.md`
+
+---
+
+# Tool Landscape
+
+```
+                          APPLICATION LIFECYCLE
+  +---------+   +---------+   +---------+   +---------+   +---------+
+  | DESIGN  |-->|  BUILD  |-->|  TEST   |-->| DEPLOY  |-->| OPERATE |
+  +---------+   +---------+   +---------+   +---------+   +---------+
+                | Make    |   | k6      |   | Helm    |   | kcat    |
+                | Maven   |   | kcat    |   | kind    |   | Confluent|
+                | Act     |   | ngrok   |   | Act     |   |  CLI    |
+                +---------+   | Shadow  |   +---------+   | Kafka   |
+                              | Traffic |                 |  CLI    |
+                              +---------+                 +---------+
+```
+
+Full tool reference with install instructions, role mapping,
+and examples: `docs/workshop/TOOLS.md`
 
 ---
 
@@ -867,7 +954,9 @@ curl -X POST \
 # Vielen Dank!
 # Questions?
 
-### *RUNBOOK.md is your reference from here on.*
+### *RUNBOOK.md is your daily reference.*
+### *TOOLS.md is your tool encyclopedia.*
+### *Levels 201–401 are your growth path.*
 
 ---
 

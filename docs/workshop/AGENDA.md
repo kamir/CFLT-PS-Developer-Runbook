@@ -200,4 +200,20 @@ Diagnose real problems using the toolkit.
 | Slide Deck | `docs/workshop/DECK.md` | Instructor presentation (Marp) |
 | Lab Guide | `docs/workshop/HANDS-ON-LAB.md` | Step-by-step participant guide |
 | Learning Track | `docs/workshop/LERNPFAD.md` | Sporen milestones and badges |
+| Tool Reference | `docs/workshop/TOOLS.md` | Complete tool documentation |
 | Validation Script | `scripts/workshop-check.sh` | Automated checkpoint validation |
+
+---
+
+## Advanced Levels
+
+This agenda covers **Level 101** (Blocks 1–6). The full curriculum continues:
+
+| Level | Document | Duration | Focus |
+|---|---|---|---|
+| **101** | This agenda (Blocks 1–6) | 1 day | Foundations — build, run, deploy |
+| **201** | `docs/workshop/LEVEL-201.md` (Blocks 7–10) | Half day | Tool introduction — Make, Act, kind, Helm, k6, kcat mastery |
+| **301** | `docs/workshop/LEVEL-301.md` (Blocks 11–15) | 1 day | Deep dive — CI/CD engineering, K8s strategy, release simulation |
+| **401** | `docs/workshop/LEVEL-401.md` (Blocks 16–19) | 1 day | Engineering — RocksDB tuning, JVM optimization, capacity planning |
+
+**Total curriculum:** 3.5 days | 19 blocks | 17 Sporen | 1 Grossmeister

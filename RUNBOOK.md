@@ -787,6 +787,96 @@ kubectl rollout restart deployment/fraud-detection -n confluent-apps-dev
 kubectl top pods -n confluent-apps-dev
 ```
 
+### 9.8 Make — Unified Build Interface
+
+All common commands wrapped in a single `Makefile`:
+
+```bash
+make help           # Show all available targets
+make build          # mvn clean package -DskipTests
+make test           # mvn verify
+make ci             # Full CI pipeline (build, test, scan)
+make docker-build   # Build Docker images for both apps
+make local-up       # docker compose up (broker + SR)
+make topics         # Create Kafka topics
+make kind-create    # Create local K8s cluster (kind)
+make k8s-dev        # kubectl apply -k k8s/overlays/dev
+make diagnose       # Run full diagnostics
+make load-test      # k6 load test
+```
+
+See `Makefile` at the repository root for the full list.
+
+### 9.9 Act — Local GitHub Actions
+
+Run CI/CD pipelines on your laptop before pushing:
+
+```bash
+# Install: brew install act
+# Repo:    https://github.com/nektos/act
+
+act push --workflows .github/workflows/ci.yaml          # Run full CI
+act push --workflows .github/workflows/ci.yaml --job build  # Run one job
+act --list --workflows .github/workflows/ci.yaml        # List jobs
+act push --dryrun                                        # Dry-run
+```
+
+### 9.10 kind — Kubernetes in Docker
+
+Disposable K8s clusters for local testing:
+
+```bash
+# Install: brew install kind
+# Repo:    https://github.com/kubernetes-sigs/kind
+
+kind create cluster --name kafka-dev --config kind-cluster.yaml
+kind load docker-image payment-app:workshop --name kafka-dev  # No registry push!
+kubectl apply -k k8s/overlays/dev/
+kind delete cluster --name kafka-dev
+```
+
+### 9.11 Helm — Kubernetes Package Manager
+
+Parameterized deployments with rollback support:
+
+```bash
+# Install: brew install helm
+# Repo:    https://github.com/helm/helm
+
+helm install payment-app ./helm/payment-app --values helm/payment-app/values-dev.yaml -n confluent-apps
+helm upgrade payment-app ./helm/payment-app --set image.tag=v1.1.0
+helm rollback payment-app 1
+helm template payment-app ./helm/payment-app --values helm/payment-app/values-prod.yaml
+```
+
+### 9.12 k6 — Load Testing
+
+Developer-friendly load testing with CI integration:
+
+```bash
+# Install: brew install k6
+# Repo:    https://github.com/grafana/k6
+
+k6 run tests/load/payment-producer-test.js
+k6 run --vus 50 --duration 2m tests/load/payment-producer-test.js
+k6 run --out json=results.json tests/load/payment-producer-test.js
+```
+
+### 9.13 ngrok — Secure Tunnels
+
+Expose local services for webhook testing and demos:
+
+```bash
+# Install: brew install ngrok
+# Website: https://ngrok.com
+
+ngrok http 8080                # Public URL → localhost:8080
+# Inspect traffic: http://127.0.0.1:4040
+```
+
+> For full tool documentation with examples, role mapping, and workshop integration,
+> see [docs/workshop/TOOLS.md](docs/workshop/TOOLS.md).
+
 ---
 
 ## 10. Troubleshooting & Diagnostics

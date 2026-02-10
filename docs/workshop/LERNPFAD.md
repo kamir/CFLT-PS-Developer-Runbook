@@ -292,9 +292,89 @@ The holder can:
 
 ---
 
+---
+
+## Advanced Levels — Beyond Meister-Sporn
+
+The learning path continues with three advanced levels. Each builds on all previous levels.
+
+```
+  Level 101 (1 day)      Level 201 (half day)     Level 301 (1 day)      Level 401 (1 day)
+┌─────────────────┐   ┌──────────────────────┐   ┌─────────────────┐   ┌──────────────────┐
+│ Blocks 1–6      │   │ Blocks 7–10          │   │ Blocks 11–15    │   │ Blocks 16–19     │
+│ 6 Sporen        │──>│ 4 Sporen             │──>│ 5 Sporen        │──>│ 4 Sporen         │
+│ Meister-Sporn   │   │ Werkzeug-Meister     │   │ Werkstatt-Meister│  │ Grossmeister     │
+│                 │   │                      │   │                 │   │                  │
+│ "Sich die       │   │ "Das Werkzeug        │   │ "Die Werkstatt  │   │ "Die Kunst der   │
+│  Sporen         │   │  kennen"             │   │  meistern"      │   │  Optimierung"    │
+│  verdienen"     │   │                      │   │                 │   │                  │
+└─────────────────┘   └──────────────────────┘   └─────────────────┘   └──────────────────┘
+```
+
+---
+
+## Level 201 Sporen — Das Werkzeug kennen
+
+| Block | Sporn | Topic |
+|---|---|---|
+| 7 | **Schmied-Sporn** (Blacksmith) | Make & Act — Build Automation |
+| 8 | **Ritter-Sporn** (Knight) | kind & Helm — Local Kubernetes |
+| 9 | **Prüfer-Sporn** (Inspector) | k6, ngrok & Shadow Traffic — Testing |
+| 10 | **Melder-Sporn** (Herald) | Confluent CLI, Kafka CLI & kcat — Mastery |
+
+**Completion:** Werkzeug-Meister (Tool Master)
+
+See full details: `docs/workshop/LEVEL-201.md`
+
+---
+
+## Level 301 Sporen — Die Werkstatt meistern
+
+| Block | Sporn | Topic |
+|---|---|---|
+| 11 | **Pipeline-Sporn** | CI/CD Pipeline Engineering with Make & Act |
+| 12 | **Strategen-Sporn** | K8s Deployment Strategy (kind + Helm + Kustomize) |
+| 13 | **Lastprüfer-Sporn** | Load Testing & Traffic Management (k6 + Shadow) |
+| 14 | **Kommandant-Sporn** | Confluent Cloud Automation & Operational Runbooks |
+| 15 | **General-Sporn** | End-to-End Release Simulation |
+
+**Completion:** Werkstatt-Meister (Workshop Master)
+
+See full details: `docs/workshop/LEVEL-301.md`
+
+---
+
+## Level 401 Sporen — Die Kunst der Optimierung
+
+| Block | Sporn | Topic |
+|---|---|---|
+| 16 | **Tuner-Sporn** | Producer & Consumer Throughput Tuning |
+| 17 | **Ingenieur-Sporn** | Kafka Streams & RocksDB Optimization |
+| 18 | **Architekt-Sporn** | K8s Resource Tuning & JVM Optimization |
+| 19 | **Feldherr-Sporn** | Production Load Testing & Capacity Planning |
+
+**Completion:** Grossmeister (Grand Master)
+
+See full details: `docs/workshop/LEVEL-401.md`
+
+---
+
+## Complete Sporen Summary
+
+```
+Level 101:  Bronzener → Silberner → Goldener → Eiserner → Stahlerner → Diamantener  = Meister-Sporn
+Level 201:  Schmied → Ritter → Prüfer → Melder                                       = Werkzeug-Meister
+Level 301:  Pipeline → Strategen → Lastprüfer → Kommandant → General                  = Werkstatt-Meister
+Level 401:  Tuner → Ingenieur → Architekt → Feldherr                                  = Grossmeister
+
+Total: 19 Blocks | 17 Sporen | 4 Mastery Levels | 3.5 Days
+```
+
+---
+
 ## Continuing Education
 
-After earning the Meister-Sporn, deepen your skills:
+After earning the Grossmeister, deepen your skills:
 
 | Topic | Resource |
 |---|---|
@@ -303,3 +383,6 @@ After earning the Meister-Sporn, deepen your skills:
 | Schema Evolution Patterns | Confluent Schema Registry docs |
 | K8s Operators for Kafka | Confluent for Kubernetes (CFK) |
 | Advanced PCI-DSS | PCI SSC Document Library |
+| RocksDB Tuning Guide | [github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide](https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide) |
+| k6 Documentation | [k6.io/docs](https://k6.io/docs/) |
+| Helm Best Practices | [helm.sh/docs/chart_best_practices](https://helm.sh/docs/chart_best_practices/) |
