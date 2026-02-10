@@ -37,25 +37,25 @@ This runbook describes the complete lifecycle for building, testing, and operati
 ### Architecture
 
 ```
-┌─────────────┐    payments     ┌───────────────────┐    fraud-alerts     ┌────────────┐
-│  Payment     │ ──────────────►│  Fraud Detection   │ ──────────────────►│  Alert     │
-│  Producer    │                │  (Kafka Streams)   │                    │  Consumer  │
-└─────────────┘                │                    │                    └────────────┘
-                               │  approved-payments │
-                               │ ──────────────────►│  Downstream
-                               └───────────────────┘   Systems
+┌──────────────┐    payments    ┌───────────────────┐    fraud-alerts    ┌────────────┐
+│  Payment     │ ──────────────►│  Fraud Detection  │ ──────────────────►│  Alert     │
+│  Producer    │                │  (Kafka Streams)  │                    │  Consumer  │
+└──────────────┘                │                   │                    └────────────┘
+                                │ approved-payments │
+                                │                   │ ──────────────────►  Downstream
+                                └───────────────────┘                       Systems
 ```
 
 ### Environment Promotion Model
 
 ```
   DEV (manual)          QA (scripted)           PROD (GitOps handover)
-┌──────────────┐    ┌──────────────────┐    ┌─────────────────────────┐
-│ Local broker │    │ Confluent Cloud  │    │ Confluent Cloud         │
-│ docker-compose│──►│ Dedicated cluster│──►│ Dedicated cluster       │
-│ Self-service │    │ CI/CD automated  │    │ PR-based, Ops approval  │
-│ Manual tasks │    │ Config in files  │    │ Code + Config via GitHub│
-└──────────────┘    └──────────────────┘    └─────────────────────────┘
+┌────────────── ┐    ┌──────────────────┐    ┌─────────────────────────┐
+│ Local broker  │    │ Confluent Cloud  │    │ Confluent Cloud         │
+│ docker-compose│──► │ Dedicated cluster│──► │ Dedicated cluster       │
+│ Self-service  │    │ CI/CD automated  │    │ PR-based, Ops approval  │
+│ Manual tasks  │    │ Config in files  │    │ Code + Config via GitHub│
+└────────────── ┘    └──────────────────┘    └─────────────────────────┘
 ```
 
 ---
@@ -411,14 +411,14 @@ kubectl rollout undo deployment/payment-producer -n confluent-apps-prod
 main ─────────●──────────────────────●──────── (tagged releases only)
               │                      │
               │    release/1.0.0     │
-              │  ┌────●────●────┐   │
-              │  │              │   │
-develop ──●───●──●──────────────●───●──●────── (integration branch)
-          │      │              │      │
-          │  feature/payment   │  feature/alerts
-          │  ┌──●──●──┐       │  ┌──●──┐
-          │  │        │       │  │     │
-          └──┘        └───────┘  └─────┘
+              │  ┌────●────●────┐    │
+              │  │              │    │
+develop ──●───●──●──────────────●────●──●────── (integration branch)
+          │      │              │       │
+          │  feature/payment    │   feature/alerts
+          │  ┌──●──●──┐         │    ┌──●──┐
+          │  │        │         │    │     │
+          └──┘        └─────────┘    └─────┘
 
           hotfix/sec-patch
           ┌──●──┐
@@ -441,16 +441,16 @@ main ─────●     ●──── (hotfix merged to main AND develop)
 
 ```
 Developer          GitHub              CI/CD              ArgoCD/Flux         K8s Cluster
-   │                  │                  │                    │                   │
-   │─── push ────────►│                  │                    │                   │
-   │                  │── trigger ──────►│                    │                   │
-   │                  │                  │── build & test ───►│                   │
-   │                  │                  │── push image ─────►│                   │
-   │                  │◄─ update k8s/ ──│                    │                   │
-   │                  │                  │                    │── detect change ─►│
+   │                  │                  │                    │                    │
+   │─── push ────────►│                  │                    │                    │
+   │                  │── trigger ──────►│                    │                    │
+   │                  │                  │── build & test ───►│                    │
+   │                  │                  │── push image ─────►│                    │
+   │                  │◄─ update k8s/ ── │                    │                    │
+   │                  │                  │                    │── detect change ──►│
    │                  │                  │                    │── sync manifests──►│
-   │                  │                  │                    │                   │── deploy
-   │                  │                  │                    │                   │
+   │                  │                  │                    │                    │── deploy
+   │                  │                  │                    │                    │
 ```
 
 ### Key Principles
