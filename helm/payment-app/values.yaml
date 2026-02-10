@@ -1,0 +1,55 @@
+# ==============================================================================
+# Default values for payment-app Helm chart
+# Override per environment with values-{env}.yaml
+# ==============================================================================
+
+replicaCount: 1
+
+image:
+  repository: registry.example.com/confluent-ps/producer-consumer-app
+  tag: "1.0.0-SNAPSHOT"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: "confluent-app-sa"
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 768Mi
+
+kafka:
+  bootstrapServers: ""
+  securityProtocol: "SASL_SSL"
+  saslMechanism: "PLAIN"
+  schemaRegistryUrl: ""
+
+env:
+  APP_ENV: "dev"
+
+networkPolicy:
+  enabled: true
+  egressPorts:
+    - 9092
+    - 443
+    - 53
+
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 30
+
+readinessProbe:
+  initialDelaySeconds: 15
+  periodSeconds: 10

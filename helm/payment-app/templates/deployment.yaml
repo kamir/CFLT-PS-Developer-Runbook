@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "payment-app.fullname" . }}
+  labels:
+    {{- include "payment-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "payment-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "payment-app.selectorLabels" . | nindent 8 }}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9404"
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["produce"]
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: APP_ENV
+              value: {{ .Values.env.APP_ENV | quote }}
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: {{ .Values.kafka.bootstrapServers | quote }}
+            - name: KAFKA_SECURITY_PROTOCOL
+              value: {{ .Values.kafka.securityProtocol | quote }}
+            - name: SCHEMA_REGISTRY_URL
+              value: {{ .Values.kafka.schemaRegistryUrl | quote }}
+            {{- if .Values.kafka.saslJaasConfig }}
+            - name: KAFKA_SASL_JAAS_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "payment-app.fullname" . }}-kafka-credentials
+                  key: sasl.jaas.config
+            {{- end }}
+          livenessProbe:
+            exec:
+              command: ["sh", "-c", "pgrep -f 'java.*app.jar'"]
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "pgrep -f 'java.*app.jar'"]
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}

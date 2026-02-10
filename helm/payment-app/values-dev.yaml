@@ -1,0 +1,25 @@
+# DEV environment overrides
+replicaCount: 1
+
+image:
+  tag: "workshop"
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 250m
+    memory: 512Mi
+
+kafka:
+  bootstrapServers: "broker:29092"
+  securityProtocol: "PLAINTEXT"
+  schemaRegistryUrl: "http://schema-registry:8081"
+
+env:
+  APP_ENV: "dev"
+
+networkPolicy:
+  enabled: false

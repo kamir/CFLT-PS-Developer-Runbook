@@ -1,0 +1,13 @@
+apiVersion: v2
+name: payment-app
+description: Confluent Cloud Payment Processing Application (Producer/Consumer)
+type: application
+version: 0.1.0
+appVersion: "1.0.0-SNAPSHOT"
+keywords:
+  - kafka
+  - confluent
+  - payments
+  - pci-dss
+maintainers:
+  - name: confluent-ps
