@@ -61,7 +61,7 @@ CHECKLIST = [
     {
         "level": "101",
         "block": 1,
-        "sporn": "Bronzener Sporn",
+        "sporn": "Bronze Badge",
         "title": "Local Dev Environment & First Messages",
         "items": [
             ("Clone repo and inspect structure", "git clone, ls, cat README.md", "Repo cloned, structure matches RUNBOOK Section 3"),
@@ -73,13 +73,13 @@ CHECKLIST = [
             ("Run the consumer", "java -Dapp.env=dev -jar producer-consumer-app/target/*.jar consume", "Messages received, offsets committed"),
             ("Inspect with kcat", "kcat -b localhost:9092 -t payments -C -o beginning -c 5 -e", "5 messages displayed with masked card numbers"),
             ("Verify PCI-DSS masking", "Inspect kcat output", "Card numbers show ****-****-****-XXXX only"),
-            ("Run workshop checkpoint", "./scripts/workshop-check.sh block1", "All checks PASS, Bronzener Sporn earned"),
+            ("Run workshop checkpoint", "./scripts/workshop-check.sh block1", "All checks PASS, Bronze Badge earned"),
         ],
     },
     {
         "level": "101",
         "block": 2,
-        "sporn": "Silberner Sporn",
+        "sporn": "Silver Badge",
         "title": "Producer/Consumer Deep Dive & PCI-DSS",
         "items": [
             ("Review PaymentProducer.java", "Open in IDE, review acks, idempotence, masking", "Understand acks=all, enable.idempotence=true, card masking logic"),
@@ -90,13 +90,13 @@ CHECKLIST = [
             ("Verify modified producer output", "kcat -b localhost:9092 -t payments -C -o -1 -c 1 -e", "country_code field visible in JSON"),
             ("Run unit tests", "mvn test -pl producer-consumer-app", "All tests PASS"),
             ("Verify no unmasked card numbers", "grep -r for card patterns in source", "No full PAN in code or logs"),
-            ("Run workshop checkpoint", "./scripts/workshop-check.sh block2", "All checks PASS, Silberner Sporn earned"),
+            ("Run workshop checkpoint", "./scripts/workshop-check.sh block2", "All checks PASS, Silver Badge earned"),
         ],
     },
     {
         "level": "101",
         "block": 3,
-        "sporn": "Goldener Sporn",
+        "sporn": "Gold Badge",
         "title": "Kafka Streams — Fraud Detection",
         "items": [
             ("Review FraudDetectionTopology.java", "Open in IDE, trace the pipeline", "Understand source → enrich → branch topology"),
@@ -108,13 +108,13 @@ CHECKLIST = [
             ("Start KStreams app", "java -Dapp.env=dev -jar kstreams-app/target/*.jar", "Topology printed, app enters RUNNING state"),
             ("Verify fraud-alerts topic", "kcat -b localhost:9092 -t fraud-alerts -C -o beginning -c 5 -e", "Flagged transactions visible with risk_score > 0.7"),
             ("Verify approved-payments topic", "kcat -b localhost:9092 -t approved-payments -C -o beginning -c 5 -e", "Approved transactions visible with risk_score <= 0.7"),
-            ("Run workshop checkpoint", "./scripts/workshop-check.sh block3", "All checks PASS, Goldener Sporn earned"),
+            ("Run workshop checkpoint", "./scripts/workshop-check.sh block3", "All checks PASS, Gold Badge earned"),
         ],
     },
     {
         "level": "101",
         "block": 4,
-        "sporn": "Eiserner Sporn",
+        "sporn": "Iron Badge",
         "title": "Configuration & Git-Flow",
         "items": [
             ("Test config: base classpath", "java -Dapp.env=dev -jar *.jar produce (check log)", "Log shows bootstrap.servers=localhost:9092"),
@@ -126,13 +126,13 @@ CHECKLIST = [
             ("Commit changes from Blocks 2+3", "git add ... && git commit", "Commit created with descriptive message"),
             ("Verify git log", "git log --oneline -5", "New commit visible on feature branch"),
             ("Return to main branch", "git checkout -", "Back on original branch"),
-            ("Run workshop checkpoint", "./scripts/workshop-check.sh block4", "All checks PASS, Eiserner Sporn earned"),
+            ("Run workshop checkpoint", "./scripts/workshop-check.sh block4", "All checks PASS, Iron Badge earned"),
         ],
     },
     {
         "level": "101",
         "block": 5,
-        "sporn": "Stahlerner Sporn",
+        "sporn": "Steel Badge",
         "title": "Docker, Kubernetes & GitOps",
         "items": [
             ("Build producer-consumer Docker image", "docker build -f docker/Dockerfile.producer-consumer -t payment-app:workshop .", "Image built successfully"),
@@ -144,13 +144,13 @@ CHECKLIST = [
             ("Compare dev vs prod replicas", "Visual comparison of kustomize output", "DEV=1, PROD=4 replicas for fraud-detection"),
             ("Review CI pipeline", "cat .github/workflows/ci.yaml", "3 jobs: build, docker, security"),
             ("Review CD pipeline", "cat .github/workflows/cd-gitops.yaml", "QA auto-promote, PROD via PR"),
-            ("Run workshop checkpoint", "./scripts/workshop-check.sh block5", "All checks PASS, Stahlerner Sporn earned"),
+            ("Run workshop checkpoint", "./scripts/workshop-check.sh block5", "All checks PASS, Steel Badge earned"),
         ],
     },
     {
         "level": "101",
         "block": 6,
-        "sporn": "Diamantener Sporn",
+        "sporn": "Diamond Badge",
         "title": "Troubleshooting & Diagnostics",
         "items": [
             ("Run full diagnostics", "./scripts/diagnose.sh full", "All sections execute, output readable"),
@@ -162,15 +162,15 @@ CHECKLIST = [
             ("Scenario B: Start consumer, lag decreases", "Start consumer, check lag again", "LAG decreasing toward 0"),
             ("Scenario C: Schema Registry health", "./scripts/diagnose.sh schema-check", "SR reachable, subjects listed"),
             ("Scenario C: Test incompatible schema", "curl POST with removed field", "HTTP 409 returned (expected)"),
-            ("Run workshop checkpoint", "./scripts/workshop-check.sh block6", "All checks PASS, Diamantener Sporn earned"),
-            ("Run final checkpoint", "./scripts/workshop-check.sh final", "ALL blocks PASS, Meister-Sporn earned"),
+            ("Run workshop checkpoint", "./scripts/workshop-check.sh block6", "All checks PASS, Diamond Badge earned"),
+            ("Run final checkpoint", "./scripts/workshop-check.sh final", "ALL blocks PASS, Master Badge earned"),
         ],
     },
     # ── Level 201 ──────────────────────────────────────────────────────────
     {
         "level": "201",
         "block": 7,
-        "sporn": "Schmied-Sporn",
+        "sporn": "Smith Badge",
         "title": "Make & Act — Build Automation",
         "items": [
             ("Run make help", "make help", "All targets listed with descriptions"),
@@ -189,7 +189,7 @@ CHECKLIST = [
     {
         "level": "201",
         "block": 8,
-        "sporn": "Ritter-Sporn",
+        "sporn": "Knight Badge",
         "title": "kind & Helm — Local Kubernetes",
         "items": [
             ("Install kind", "kind --version", "kind version displayed"),
@@ -207,7 +207,7 @@ CHECKLIST = [
     {
         "level": "201",
         "block": 9,
-        "sporn": "Prüfer-Sporn",
+        "sporn": "Inspector Badge",
         "title": "k6, ngrok & Shadow Traffic",
         "items": [
             ("Install k6", "k6 version", "k6 version displayed"),
@@ -221,7 +221,7 @@ CHECKLIST = [
     {
         "level": "201",
         "block": 10,
-        "sporn": "Melder-Sporn",
+        "sporn": "Messenger Badge",
         "title": "Confluent CLI, Kafka CLI & kcat Mastery",
         "items": [
             ("Confluent CLI installed", "confluent version", "Version displayed"),
@@ -237,7 +237,7 @@ CHECKLIST = [
     {
         "level": "301",
         "block": 11,
-        "sporn": "Pipeline-Sporn",
+        "sporn": "Pipeline Badge",
         "title": "CI/CD Pipeline Engineering",
         "items": [
             ("Add ci-lint Make target", "Edit Makefile", "make ci-lint runs spotbugs or equivalent"),
@@ -251,7 +251,7 @@ CHECKLIST = [
     {
         "level": "301",
         "block": 12,
-        "sporn": "Strategen-Sporn",
+        "sporn": "Strategist Badge",
         "title": "K8s Deployment Strategy",
         "items": [
             ("Create multi-env kind cluster", "kind create cluster --name multi-env --config kind-cluster.yaml", "Cluster created"),
@@ -267,7 +267,7 @@ CHECKLIST = [
     {
         "level": "301",
         "block": 13,
-        "sporn": "Lastprüfer-Sporn",
+        "sporn": "Load Tester Badge",
         "title": "Load Testing & Traffic Management",
         "items": [
             ("Run k6 normal load scenario", "k6 run tests/load/payment-producer-test.js", "Normal load metrics collected"),
@@ -281,7 +281,7 @@ CHECKLIST = [
     {
         "level": "301",
         "block": 14,
-        "sporn": "Kommandant-Sporn",
+        "sporn": "Commander Badge",
         "title": "Confluent Cloud Automation & Ops Runbooks",
         "items": [
             ("Review ccloud-setup.sh", "cat scripts/ccloud-setup.sh", "Script creates env, cluster, keys, topics"),
@@ -294,7 +294,7 @@ CHECKLIST = [
     {
         "level": "301",
         "block": 15,
-        "sporn": "General-Sporn",
+        "sporn": "General Badge",
         "title": "End-to-End Release Simulation",
         "items": [
             ("Create feature branch", "git checkout -b feature/new-fraud-rule develop", "Branch created"),
@@ -314,7 +314,7 @@ CHECKLIST = [
     {
         "level": "401",
         "block": 16,
-        "sporn": "Tuner-Sporn",
+        "sporn": "Tuner Badge",
         "title": "Producer & Consumer Tuning",
         "items": [
             ("Baseline producer perf test", "kafka-producer-perf-test (default settings)", "Records/sec, MB/sec, avg/P99 latency recorded"),
@@ -328,7 +328,7 @@ CHECKLIST = [
     {
         "level": "401",
         "block": 17,
-        "sporn": "Ingenieur-Sporn",
+        "sporn": "Engineer Badge",
         "title": "Kafka Streams & RocksDB Optimization",
         "items": [
             ("Review TunedRocksDBConfig.java", "Open in IDE", "Understand block cache, write buffer, compression settings"),
@@ -343,7 +343,7 @@ CHECKLIST = [
     {
         "level": "401",
         "block": 18,
-        "sporn": "Architekt-Sporn",
+        "sporn": "Architect Badge",
         "title": "K8s Resource Tuning & JVM Optimization",
         "items": [
             ("Review JVM flags for KStreams", "G1GC, fixed heap, ExitOnOutOfMemoryError", "Understand each flag's purpose"),
@@ -358,7 +358,7 @@ CHECKLIST = [
     {
         "level": "401",
         "block": 19,
-        "sporn": "Feldherr-Sporn",
+        "sporn": "Field Marshal Badge",
         "title": "Production Load Testing & Capacity Planning",
         "items": [
             ("Capacity planning calculation", "Compute ingress, storage, partitions, instances", "All values documented with formulas"),
@@ -366,7 +366,7 @@ CHECKLIST = [
             ("Burst load test (2x peak)", "kafka-producer-perf-test 200K at 2x rate", "System handles burst without errors"),
             ("Consumer throughput test", "kafka-consumer-perf-test 500K messages", "Consumer keeps up with production rate"),
             ("Complete production readiness checklist", "Review all 15 items in LEVEL-401.md", "All items checked and documented"),
-            ("Final validation", "./scripts/workshop-check.sh level401", "Grossmeister earned"),
+            ("Final validation", "./scripts/workshop-check.sh level401", "Grand Master earned"),
         ],
     },
 ]
@@ -378,7 +378,7 @@ wb = Workbook()
 
 LEVEL_FILLS = {"101": FILL_LEVEL_101, "201": FILL_LEVEL_201, "301": FILL_LEVEL_301, "401": FILL_LEVEL_401}
 LEVEL_NAMES = {"101": "Foundations", "201": "Tool Introduction", "301": "Deep Dive", "401": "Engineering Tuning"}
-LEVEL_GERMAN = {"101": "Sich die Sporen verdienen", "201": "Das Werkzeug kennen", "301": "Die Werkstatt meistern", "401": "Die Kunst der Optimierung"}
+LEVEL_GERMAN = {"101": "Earn Your Badges", "201": "Know the Tools", "301": "Master the Workshop", "401": "Art of Optimization"}
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Sheet 1: Dashboard
@@ -390,7 +390,7 @@ ws_dash.sheet_properties.tabColor = "0A2540"
 # Title row
 ws_dash.merge_cells("A1:H1")
 title_cell = ws_dash["A1"]
-title_cell.value = "QA Checklist — Confluent Cloud Java Developer Workshop"
+title_cell.value = "QA Checklist — Confluent Cloud Java Developer Workshop (English)"
 title_cell.font = FONT_TITLE
 title_cell.fill = FILL_TITLE
 title_cell.alignment = ALIGN_CENTER
@@ -398,13 +398,13 @@ ws_dash.row_dimensions[1].height = 40
 
 # Info
 ws_dash.merge_cells("A2:H2")
-ws_dash["A2"].value = f"Generated: {datetime.date.today().isoformat()}  |  Tester: ____________________  |  Total: 19 Blocks, 17 Sporen, 4 Levels"
+ws_dash["A2"].value = f"Generated: {datetime.date.today().isoformat()}  |  Tester: ____________________  |  Total: 19 Blocks, 17 Badges, 4 Levels"
 ws_dash["A2"].font = FONT_SMALL
 ws_dash["A2"].alignment = ALIGN_CENTER
 ws_dash.row_dimensions[2].height = 20
 
 # Headers
-headers_dash = ["Level", "Block", "Sporn", "Title", "Items", "Passed", "Failed", "Status"]
+headers_dash = ["Level", "Block", "Badge", "Title", "Items", "Passed", "Failed", "Status"]
 for col, h in enumerate(headers_dash, 1):
     c = ws_dash.cell(row=4, column=col, value=h)
     c.font = FONT_HEADER
@@ -611,7 +611,7 @@ for level in ["101", "201", "301", "401"]:
             item_num += 1
             row += 1
 
-        # Sporn summary row
+        # Badge summary row
         ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=5)
         sp = ws.cell(row=row, column=1,
                      value=f"  >>> {entry['sporn']} — EARNED?")
@@ -629,7 +629,7 @@ for level in ["101", "201", "301", "401"]:
         row += 2  # blank row between blocks
 
     # Mastery row
-    mastery_names = {"101": "MEISTER-SPORN", "201": "WERKZEUG-MEISTER", "301": "WERKSTATT-MEISTER", "401": "GROSSMEISTER"}
+    mastery_names = {"101": "MASTER BADGE", "201": "TOOL MASTER", "301": "WORKSHOP MASTER", "401": "GRAND MASTER"}
     ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=9)
     m = ws.cell(row=row, column=1,
                 value=f"  Level {level} Complete — {mastery_names[level]} EARNED?     YES / NO")
@@ -755,7 +755,7 @@ ws_notes.freeze_panes = "A4"
 # ═══════════════════════════════════════════════════════════════════════════
 # Save
 # ═══════════════════════════════════════════════════════════════════════════
-output_path = "docs/workshop/QA-Checklist.xlsx"
+output_path = "docs/workshop/QA-Checklist-EN.xlsx"
 wb.save(output_path)
 print(f"QA Checklist generated: {output_path}")
 print(f"  Sheets: {len(wb.sheetnames)} ({', '.join(wb.sheetnames)})")
