@@ -133,18 +133,21 @@ k8s-prod:                                      ## Apply K8s PROD overlay
 diagnose:                                      ## Run full diagnostics
 	./scripts/diagnose.sh full
 
-.PHONY: kshark-init
-kshark-init:                                   ## Install kshark into ./tools
-	./scripts/kshark-init.sh
-
 .PHONY: client-properties
 client-properties:                             ## Generate client.properties from .env
 	./scripts/create-client-properties.sh
+
+.PHONY: kshark-init
+kshark-init:                                   ## Install kshark into ./tools
+	./scripts/kshark-init.sh
 
 .PHONY: kshark-scan
 kshark-scan:                                   ## Run kshark against current cluster
 	KSHARK_TIMEOUT=120s ./scripts/kshark-scan.sh
 
+.PHONY: kshark-diag-ccloud
+kshark-diag-ccloud:                             ## Diagnose Confluent Cloud resources for kshark
+	./scripts/kshark-diag-ccloud.sh
 
 .PHONY: demo-produce
 demo-produce:                                  ## Run demo producer (uses client.properties)

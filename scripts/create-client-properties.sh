@@ -46,22 +46,24 @@ BOOTSTRAP="${KAFKA_BOOTSTRAP_SERVERS:-}"
 SEC_PROTOCOL="${KAFKA_SECURITY_PROTOCOL:-SASL_SSL}"
 SASL_MECH="${KAFKA_SASL_MECHANISM:-PLAIN}"
 SASL_JAAS="${KAFKA_SASL_JAAS_CONFIG:-}"
-KAFKA_USER="${KAFKA_SERVICE_ACCOUNT_KEY:-${KAFKA_API_KEY:-}}"
-KAFKA_PASS="${KAFKA_SERVICE_ACCOUNT_SECRET:-${KAFKA_API_SECRET:-}}"
+KAFKA_USER="${KAFKA_SERVICE_ACCOUNT_KEY:-}"
+KAFKA_PASS="${KAFKA_SERVICE_ACCOUNT_SECRET:-}"
 
 SR_URL="${SCHEMA_REGISTRY_URL:-}"
-SR_USER_INFO="${SCHEMA_REGISTRY_SERVICE_ACCOUNT_KEY:-${SCHEMA_REGISTRY_KEY:-}}:${SCHEMA_REGISTRY_SERVICE_ACCOUNT_SECRET:-${SCHEMA_REGISTRY_SECRET:-}}"
-if [ "$SR_USER_INFO" = ":" ]; then
-    SR_USER_INFO="${SCHEMA_REGISTRY_USER_INFO:-}"
-fi
+SR_USER_INFO="${SCHEMA_REGISTRY_SERVICE_ACCOUNT_KEY:-}:${SCHEMA_REGISTRY_SERVICE_ACCOUNT_SECRET:-}"
 
 if [ -z "$BOOTSTRAP" ]; then
     echo "[ERROR] KAFKA_BOOTSTRAP_SERVERS not set (from $ENV_FILE)" >&2
     exit 1
 fi
+if [ -z "$KAFKA_USER" ] || [ -z "$KAFKA_PASS" ]; then
+    echo "[ERROR] Service account credentials not set (KAFKA_SERVICE_ACCOUNT_KEY/SECRET) in $ENV_FILE" >&2
+    exit 1
+fi
 
 {
     echo "# Kafka Cluster Connection"
+    echo "# Service Account credentials (required for demos and kshark)"
     echo "bootstrap.servers=$BOOTSTRAP"
     echo "security.protocol=$SEC_PROTOCOL"
     echo "sasl.mechanism=$SASL_MECH"
@@ -77,6 +79,10 @@ fi
     echo ""
     echo "# Schema Registry Connection"
     if [ -n "$SR_URL" ]; then
+        if [ -z "$SR_USER_INFO" ] || [ "$SR_USER_INFO" = ":" ]; then
+            echo "[ERROR] Service account SR credentials not set (SCHEMA_REGISTRY_SERVICE_ACCOUNT_KEY/SECRET) in $ENV_FILE" >&2
+            exit 1
+        fi
         echo "schema.registry.url=$SR_URL"
         echo "basic.auth.credentials.source=USER_INFO"
         if [ -n "$SR_USER_INFO" ]; then

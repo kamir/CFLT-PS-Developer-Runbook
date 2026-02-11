@@ -53,3 +53,6 @@ credentials.properties
 
 # --- Local tools ---
 tools/
+
+# --- kshark generated reports ---
+reports/
