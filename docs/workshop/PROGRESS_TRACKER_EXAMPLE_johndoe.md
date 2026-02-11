@@ -5,10 +5,15 @@
 
 
 **GitHub Username**: johndoe
+
 **Branch**: student/johndoe
+
 **Start Date**: 2026-02-03
+
 **Target Level**: 101-301 (skip 401 for now)
+
 **Trainer**: Alice Smith
+
 **Cohort/Workshop**: February 2026 Cohort
 
 ---
