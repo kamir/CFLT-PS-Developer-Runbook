@@ -105,27 +105,48 @@ Hi [Student Name],
 
 Welcome to the Confluent Cloud Java Developer Workshop!
 
-BEFORE THE WORKSHOP (2-3 hours):
+BEFORE THE WORKSHOP:
 
-1. Verify Prerequisites:
+📖 REQUIRED PREPARATION (4-8 hours recommended, 2 weeks before workshop):
+
+1. **Tools Warm-Up** (HIGHLY RECOMMENDED):
+   Complete our comprehensive pre-workshop learning guide:
+   👉 docs/TOOLS_WARMUP.md
+
+   This includes:
+   - High-quality tutorials from vendors, universities, and experts
+   - Hands-on exercises for Java, Git, Docker, Kafka
+   - Interactive learning resources
+   - Recommended reading: "Kafka: The Definitive Guide" (FREE)
+
+   Minimum: 4 hours (Java, Maven, Git, Docker, Kafka basics)
+   Recommended: 8 hours (includes Kubernetes, CLI tools)
+
+2. **Install Prerequisites** (1 hour):
    - Java 17+ installed
    - Maven 3.9+ installed
    - Docker Desktop installed and running
    - Git installed
    - GitHub account with SSH key configured
 
-2. Clone the repository:
+3. **Clone & Test Repository** (30 minutes):
+   ```
    git clone git@github.com:<org>/CFLT-PS-Developer-Runbook.git
    cd CFLT-PS-Developer-Runbook
-
-3. Test your environment:
    ./scripts/workshop-check.sh env
+   ```
 
-4. Read STUDENT_MANUAL.md
+4. **Read Documentation**:
+   - STUDENT_MANUAL.md - Workshop workflow
+   - docs/COURSE_STRUCTURE.md - Level structure and badges
 
-If you encounter any issues, please reply to this email.
+OPTIONAL BUT RECOMMENDED:
+- Complete Confluent Kafka 101 course: https://developer.confluent.io/learn-kafka/
+- Set up Confluent Cloud free trial: https://www.confluent.io/confluent-cloud/tryfree/
 
-See you on [Workshop Date] at [Time]!
+If you encounter any issues, please reply to this email ASAP.
+
+Looking forward to seeing you on [Workshop Date] at [Time]!
 
 Best regards,
 [Your Name]

@@ -19,6 +19,30 @@ Welcome to the Confluent Cloud Java Developer Workshop! This manual will guide y
 
 ## 🚀 Before You Start
 
+### 📖 Tools Warm-Up (HIGHLY RECOMMENDED)
+
+**Before the workshop**, we strongly recommend reviewing our comprehensive **[Tools Warm-Up Guide](docs/TOOLS_WARMUP.md)**.
+
+This guide provides:
+- ✅ High-quality learning resources from official vendors, universities, and experts
+- ✅ Recommended learning paths (4-8 hours of pre-study)
+- ✅ Interactive tutorials and hands-on labs
+- ✅ Books, courses, and expert blogs
+- ✅ Quick reference cards for all tools
+
+**Minimum recommended prep time**: 4 hours (Java, Maven, Git, Docker, Kafka basics)
+
+**Sections in the warm-up guide**:
+1. Core Development Tools (Java, Maven, Git)
+2. Kafka & Confluent Tools (Kafka, Kafka Streams, Confluent CLI, kcat)
+3. Containerization & Orchestration (Docker, Kubernetes, kind, Helm)
+4. Build & Automation (Make, GitHub Actions, Act)
+5. Testing & Validation (k6, ngrok)
+
+👉 **[Start your warm-up here: docs/TOOLS_WARMUP.md](docs/TOOLS_WARMUP.md)**
+
+---
+
 ### Prerequisites
 
 Ensure you have the following installed and configured:
