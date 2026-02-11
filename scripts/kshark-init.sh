@@ -4,11 +4,11 @@
 #
 # Usage:
 #   ./scripts/kshark-init.sh
-#   KSHARK_VERSION=0.25.2 ./scripts/kshark-init.sh
+#   KSHARK_VERSION=0.25.4 ./scripts/kshark-init.sh
 # ==============================================================================
 set -euo pipefail
 
-KSHARK_VERSION="${KSHARK_VERSION:-0.25.2}"
+KSHARK_VERSION="${KSHARK_VERSION:-0.25.4}"
 REPO="scalytics/kshark-core"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
