@@ -3,6 +3,7 @@
 > **NOTE**: This is an example filled-out progress tracker to show students how to complete theirs.
 > Students should copy `PROGRESS_TRACKER_TEMPLATE.md` and create their own personalized version.
 
+
 **GitHub Username**: johndoe
 **Branch**: student/johndoe
 **Start Date**: 2026-02-03
