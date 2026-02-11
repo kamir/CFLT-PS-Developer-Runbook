@@ -839,15 +839,15 @@ return primaryService.process(request);
 ### Level Progression
 
 ```
-Level 101 — "Sich die Sporen verdienen"
+Level 101 — "Earn Your Badges"
   You can build, test, and run Kafka apps locally.
 
-Level 201 — "Das Werkzeug kennen"
+Level 201 — "Know the Tools"
   You know every tool in the box and when to reach for it.
 
-Level 301 — "Die Werkstatt meistern"
+Level 301 — "Master the Workshop"
   You integrate tools into team workflows, CI/CD, and release planning.
 
-Level 401 — "Die Kunst der Optimierung"
+Level 401 — "Art of Optimization"
   You tune RocksDB, optimize throughput, and harden for production.
 ```

@@ -15,9 +15,10 @@ import org.slf4j.LoggerFactory;
  * Resolution order:
  *   1. Base config from classpath  (application.properties)
  *   2. Environment overlay          (application-{env}.properties)
- *   3. External file override       (-Dconfig.file=/path/to/file)
- *   4. Individual system properties (-Dbootstrap.servers=...)
- *   5. Environment variables        (KAFKA_BOOTSTRAP_SERVERS)
+ *   3. client.properties            (./client.properties or CLIENT_PROPERTIES_FILE)
+ *   4. External file override       (-Dconfig.file=/path/to/file)
+ *   5. Individual system properties (-Dbootstrap.servers=...)
+ *   6. Environment variables        (KAFKA_BOOTSTRAP_SERVERS)
  */
 public class ConfigLoader {
 
@@ -40,13 +41,16 @@ public class ConfigLoader {
         // 2. Environment-specific overlay
         loadFromClasspath(props, "application-" + environment + ".properties");
 
-        // 3. External file override
+        // 3. client.properties (generated for kshark)
+        loadClientProperties(props);
+
+        // 4. External file override
         String externalFile = System.getProperty("config.file");
         if (externalFile != null) {
             loadFromFile(props, Path.of(externalFile));
         }
 
-        // 4. System property overrides (dotted keys)
+        // 5. System property overrides (dotted keys)
         System.getProperties().forEach((k, v) -> {
             String key = k.toString();
             if (key.startsWith("kafka.")) {
@@ -54,7 +58,7 @@ public class ConfigLoader {
             }
         });
 
-        // 5. Environment variable overrides
+        // 6. Environment variable overrides
         applyEnvOverrides(props);
 
         log.info("Loaded configuration for environment='{}', bootstrap.servers='{}'",
@@ -85,6 +89,26 @@ public class ConfigLoader {
         }
     }
 
+    private static void loadClientProperties(Properties props) {
+        String override = System.getProperty("client.properties");
+        if (override == null || override.isBlank()) {
+            override = System.getenv("CLIENT_PROPERTIES_FILE");
+        }
+        if (override == null || override.isBlank()) {
+            override = System.getenv("KAFKA_CLIENT_PROPERTIES");
+        }
+        if (override == null || override.isBlank()) {
+            override = "client.properties";
+        }
+
+        Path path = Path.of(override);
+        if (Files.exists(path)) {
+            loadFromFile(props, path);
+        } else {
+            log.debug("client.properties not found (skipped): {}", path);
+        }
+    }
+
     private static void applyEnvOverrides(Properties props) {
         mapEnv("KAFKA_BOOTSTRAP_SERVERS",        "bootstrap.servers",        props);
         mapEnv("KAFKA_SECURITY_PROTOCOL",        "security.protocol",        props);
@@ -92,6 +116,7 @@ public class ConfigLoader {
         mapEnv("KAFKA_SASL_JAAS_CONFIG",         "sasl.jaas.config",         props);
         mapEnv("SCHEMA_REGISTRY_URL",            "schema.registry.url",      props);
         mapEnv("SCHEMA_REGISTRY_BASIC_AUTH",     "basic.auth.credentials.source", props);
+        mapEnv("SCHEMA_REGISTRY_USER_INFO",      "basic.auth.user.info", props);
         mapEnv("SCHEMA_REGISTRY_USER_INFO",      "schema.registry.basic.auth.user.info", props);
         mapEnv("KAFKA_CLIENT_ID",                "client.id",                props);
         mapEnv("KAFKA_GROUP_ID",                 "group.id",                 props);

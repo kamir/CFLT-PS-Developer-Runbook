@@ -50,3 +50,6 @@ docker-compose.override.yml
 credentials.properties
 *-credentials.yaml
 !k8s/base/secrets.yaml
+
+# --- Local tools ---
+tools/

@@ -1,4 +1,4 @@
-# Level 201 — Das Werkzeug kennen
+# Level 201 — Know the Tools
 
 > *Know your tools.*
 > Half-day workshop (4h) — builds on Level 101 (Blocks 1–6).
@@ -7,7 +7,7 @@
 
 ## Prerequisites
 
-- All 6 Sporen from Level 101 earned (Meister-Sporn)
+- All 6 Badges from Level 101 earned (Master Badge)
 - Tools installed: `make`, `act`, `kind`, `helm`, `k6`, `ngrok`, `kcat`, `confluent`
 
 ```bash
@@ -20,21 +20,21 @@ k6 version && ngrok version && kcat -V && confluent version
 
 ## Schedule
 
-| Time | Block | Topic | Sporn |
+| Time | Block | Topic | Badge |
 |---|---|---|---|
 | 09:00 – 09:15 | Opening | Level 201 objectives, tool landscape | — |
-| 09:15 – 10:15 | **Block 7** | Make & Act — Build Automation | Schmied-Sporn |
+| 09:15 – 10:15 | **Block 7** | Make & Act — Build Automation | Smith Badge |
 | 10:15 – 10:30 | *Break* | | |
-| 10:30 – 11:30 | **Block 8** | kind & Helm — Local K8s | Ritter-Sporn |
-| 11:30 – 12:00 | **Block 9** | k6, ngrok & Shadow Traffic — Testing | Prüfer-Sporn |
-| 12:00 – 12:45 | **Block 10** | Confluent CLI, Kafka CLI & kcat — Mastery | Melder-Sporn |
-| 12:45 – 13:00 | Closing | Recap, Level 301 preview | Werkzeug-Meister |
+| 10:30 – 11:30 | **Block 8** | kind & Helm — Local K8s | Knight Badge |
+| 11:30 – 12:00 | **Block 9** | k6, ngrok & Shadow Traffic — Testing | Inspector Badge |
+| 12:00 – 12:45 | **Block 10** | Confluent CLI, Kafka CLI & kcat — Mastery | Messenger Badge |
+| 12:45 – 13:00 | Closing | Recap, Level 301 preview | Tool Master |
 
 ---
 
 ## Block 7 — Make & Act: Build Automation
 
-### Goal: Earn the **Schmied-Sporn** (Blacksmith Spur)
+### Goal: Earn the **Smith Badge** (Blacksmith)
 
 > *The blacksmith forges the tools. You master the build system.*
 
@@ -133,14 +133,14 @@ act push --workflows .github/workflows/ci.yaml \
 ```
 
 ```
-  >>> SCHMIED-SPORN EARNED! <<<
+  >>> SMITH BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 8 — kind & Helm: Local Kubernetes
 
-### Goal: Earn the **Ritter-Sporn** (Knight Spur)
+### Goal: Earn the **Knight Badge**
 
 > *The knight commands the field. You command the cluster.*
 
@@ -240,14 +240,14 @@ kind delete cluster --name kafka-workshop
 ```
 
 ```
-  >>> RITTER-SPORN EARNED! <<<
+  >>> KNIGHT BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 9 — k6, ngrok & Shadow Traffic: Testing
 
-### Goal: Earn the **Prüfer-Sporn** (Inspector Spur)
+### Goal: Earn the **Inspector Badge**
 
 > *The inspector tests everything. You validate under pressure.*
 
@@ -308,14 +308,14 @@ Review the three shadow traffic approaches from `TOOLS.md`:
 ```
 
 ```
-  >>> PRÜFER-SPORN EARNED! <<<
+  >>> INSPECTOR BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 10 — Confluent CLI, Kafka CLI & kcat: Mastery
 
-### Goal: Earn the **Melder-Sporn** (Herald Spur)
+### Goal: Earn the **Messenger Badge** (Herald)
 
 > *The herald knows every message. You master every CLI.*
 
@@ -390,7 +390,7 @@ kcat -b localhost:9092 -t payments -C -o -3 -e
 ```
 
 ```
-  >>> MELDER-SPORN EARNED! <<<
+  >>> MESSENGER BADGE EARNED! <<<
 ```
 
 ---
@@ -405,6 +405,6 @@ kcat -b localhost:9092 -t payments -C -o -3 -e
   ================================================
     WERKZEUG-MEISTER — Level 201 Complete!
     You know every tool in the box.
-    Next: Level 301 — Die Werkstatt meistern.
+    Next: Level 301 — Master the Workshop.
   ================================================
 ```

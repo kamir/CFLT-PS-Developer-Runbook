@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # --- Stage 1: Build ---
-FROM eclipse-temurin:17-jdk-alpine AS builder
+FROM maven:3.9.9-eclipse-temurin-17 AS builder
 WORKDIR /build
 
 COPY pom.xml ./
@@ -12,18 +12,17 @@ COPY producer-consumer-app/pom.xml producer-consumer-app/
 COPY kstreams-app/pom.xml kstreams-app/
 
 # Cache dependencies
-RUN apk add --no-cache maven \
-    && mvn dependency:go-offline -pl producer-consumer-app -am -B
+RUN mvn dependency:go-offline -pl producer-consumer-app -am -B
 
 COPY producer-consumer-app/src producer-consumer-app/src
 
 RUN mvn package -pl producer-consumer-app -am -DskipTests -B
 
 # --- Stage 2: Runtime ---
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 
 # PCI-DSS Req 2: Remove unnecessary packages, run as non-root
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
 WORKDIR /app
 

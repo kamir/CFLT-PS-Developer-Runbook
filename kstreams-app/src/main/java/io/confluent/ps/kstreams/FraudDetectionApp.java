@@ -5,6 +5,7 @@ import io.confluent.ps.kstreams.topology.FraudDetectionTopology;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.errors.StreamsUncaughtExceptionHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Kafka Streams application for real-time payment fraud detection.
@@ -39,6 +43,11 @@ public class FraudDetectionApp {
         log.info("Topology:\n{}", topology.describe());
 
         KafkaStreams streams = new KafkaStreams(topology, props);
+        ScheduledExecutorService heartbeat = Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread t = new Thread(r, "kstreams-heartbeat");
+            t.setDaemon(true);
+            return t;
+        });
 
         // Graceful shutdown hook — critical for K8s SIGTERM handling
         CountDownLatch latch = new CountDownLatch(1);
@@ -61,18 +70,22 @@ public class FraudDetectionApp {
         // Uncaught exception handler
         streams.setUncaughtExceptionHandler(ex -> {
             log.error("Uncaught exception in stream thread", ex);
-            return KafkaStreams.StreamsUncaughtExceptionHandler
-                    .StreamThreadExceptionResponse.SHUTDOWN_APPLICATION;
+            return StreamsUncaughtExceptionHandler.StreamThreadExceptionResponse.SHUTDOWN_APPLICATION;
         });
 
         try {
             streams.start();
             log.info("FraudDetectionApp started");
+            heartbeat.scheduleAtFixedRate(() -> {
+                log.info("Processor heartbeat — state={}, app.id={}",
+                        streams.state(), props.getProperty(StreamsConfig.APPLICATION_ID_CONFIG));
+            }, 10, 30, TimeUnit.SECONDS);
             latch.await();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.warn("Main thread interrupted");
         } finally {
+            heartbeat.shutdownNow();
             streams.close();
             log.info("FraudDetectionApp stopped");
         }
@@ -85,6 +98,8 @@ public class FraudDetectionApp {
 
         loadFromClasspath(props, "application.properties");
         loadFromClasspath(props, "application-" + env + ".properties");
+
+        loadClientProperties(props);
 
         String externalFile = System.getProperty("config.file");
         if (externalFile != null) {
@@ -111,6 +126,32 @@ public class FraudDetectionApp {
         log.info("Loaded KStreams config for env='{}', app.id='{}'",
                 env, props.getProperty(StreamsConfig.APPLICATION_ID_CONFIG));
         return props;
+    }
+
+    private static void loadClientProperties(Properties props) {
+        String override = System.getProperty("client.properties");
+        if (override == null || override.isBlank()) {
+            override = System.getenv("CLIENT_PROPERTIES_FILE");
+        }
+        if (override == null || override.isBlank()) {
+            override = System.getenv("KAFKA_CLIENT_PROPERTIES");
+        }
+        if (override == null || override.isBlank()) {
+            override = "client.properties";
+        }
+
+        Path path = Path.of(override);
+        if (!Files.exists(path)) {
+            log.debug("client.properties not found (skipped): {}", path);
+            return;
+        }
+
+        try (InputStream is = Files.newInputStream(path)) {
+            props.load(is);
+            log.info("Loaded client.properties: {}", path);
+        } catch (IOException e) {
+            log.warn("Failed to load client.properties: {}", path, e);
+        }
     }
 
     private static void loadFromClasspath(Properties props, String resource) {

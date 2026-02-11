@@ -13,19 +13,19 @@
 
 ## Schedule at a Glance
 
-| Time | Block | Topic | Sporn |
+| Time | Block | Topic | Badge |
 |---|---|---|---|
 | 09:00 – 09:30 | **Opening** | Welcome, objectives, architecture overview | — |
-| 09:30 – 10:15 | **Block 1** | Local Dev Environment & First Messages | Bronzener Sporn |
+| 09:30 – 10:15 | **Block 1** | Local Dev Environment & First Messages | Bronze Badge |
 | 10:15 – 10:30 | *Break* | *Kaffee & Kuchen* | |
-| 10:30 – 11:30 | **Block 2** | Producer/Consumer Deep Dive & PCI-DSS | Silberner Sporn |
-| 11:30 – 12:30 | **Block 3** | Kafka Streams — Fraud Detection Topology | Goldener Sporn |
+| 10:30 – 11:30 | **Block 2** | Producer/Consumer Deep Dive & PCI-DSS | Silver Badge |
+| 11:30 – 12:30 | **Block 3** | Kafka Streams — Fraud Detection Topology | Gold Badge |
 | 12:30 – 13:30 | *Lunch* | *Mittagspause* | |
-| 13:30 – 14:30 | **Block 4** | Configuration, Environments & Git-Flow | Eiserner Sporn |
+| 13:30 – 14:30 | **Block 4** | Configuration, Environments & Git-Flow | Iron Badge |
 | 14:30 – 14:45 | *Break* | *Kaffeepause* | |
-| 14:45 – 15:45 | **Block 5** | Docker, Kubernetes & GitOps Deployment | Stählerner Sporn |
-| 15:45 – 16:30 | **Block 6** | Troubleshooting & Diagnostics | Diamantener Sporn |
-| 16:30 – 17:00 | **Closing** | Recap, Q&A, Zertifikat | Meister-Sporn |
+| 14:45 – 15:45 | **Block 5** | Docker, Kubernetes & GitOps Deployment | Steel Badge |
+| 15:45 – 16:30 | **Block 6** | Troubleshooting & Diagnostics | Diamond Badge |
+| 16:30 – 17:00 | **Closing** | Recap, Q&A, Certificate | Master Badge |
 
 ---
 
@@ -48,7 +48,7 @@
 
 ### 09:30 – 10:15 | Block 1 — Local Dev Environment & First Messages
 
-**Hands-on (45 min)** | Earn: **Bronzener Sporn** (Bronze Spur)
+**Hands-on (45 min)** | Earn: **Bronze Badge**
 
 Participants set up the local environment from scratch and send their first Kafka messages.
 
@@ -69,7 +69,7 @@ Participants set up the local environment from scratch and send their first Kafk
 
 ### 10:30 – 11:30 | Block 2 — Producer/Consumer Deep Dive & PCI-DSS
 
-**Instructor-led + Hands-on (60 min)** | Earn: **Silberner Sporn** (Silver Spur)
+**Instructor-led + Hands-on (60 min)** | Earn: **Silver Badge**
 
 Deep dive into the producer and consumer code with PCI-DSS focus.
 
@@ -90,7 +90,7 @@ Deep dive into the producer and consumer code with PCI-DSS focus.
 
 ### 11:30 – 12:30 | Block 3 — Kafka Streams: Fraud Detection
 
-**Instructor-led + Hands-on (60 min)** | Earn: **Goldener Sporn** (Gold Spur)
+**Instructor-led + Hands-on (60 min)** | Earn: **Gold Badge**
 
 Build and test a real Kafka Streams topology.
 
@@ -109,7 +109,7 @@ Build and test a real Kafka Streams topology.
 
 ### 13:30 – 14:30 | Block 4 — Configuration, Environments & Git-Flow
 
-**Instructor-led + Hands-on (60 min)** | Earn: **Eiserner Sporn** (Iron Spur)
+**Instructor-led + Hands-on (60 min)** | Earn: **Iron Badge**
 
 Master the configuration system and Git-Flow workflow.
 
@@ -128,7 +128,7 @@ Master the configuration system and Git-Flow workflow.
 
 ### 14:45 – 15:45 | Block 5 — Docker, Kubernetes & GitOps
 
-**Instructor-led + Hands-on (60 min)** | Earn: **Stählerner Sporn** (Steel Spur)
+**Instructor-led + Hands-on (60 min)** | Earn: **Steel Badge**
 
 Containerize, deploy to K8s, and understand the GitOps flow.
 
@@ -148,7 +148,7 @@ Containerize, deploy to K8s, and understand the GitOps flow.
 
 ### 15:45 – 16:30 | Block 6 — Troubleshooting & Diagnostics
 
-**Hands-on (45 min)** | Earn: **Diamantener Sporn** (Diamond Spur)
+**Hands-on (45 min)** | Earn: **Diamond Badge**
 
 Diagnose real problems using the toolkit.
 
@@ -169,12 +169,12 @@ Diagnose real problems using the toolkit.
 **Instructor-led (30 min)**
 
 - Recap of all 6 blocks
-- Review of earned Sporen (learning track progress)
+- Review of earned Badges (learning track progress)
 - Q&A session
 - Distribution of workshop certificates
 - Next steps: Confluent Cloud access, team onboarding, PROD readiness
 
-**Slide:** Final "Meister-Sporn" certificate slide
+**Slide:** Final "Master Badge" certificate slide
 
 ---
 
@@ -199,7 +199,7 @@ Diagnose real problems using the toolkit.
 | This Agenda | `docs/workshop/AGENDA.md` | Workshop schedule and structure |
 | Slide Deck | `docs/workshop/DECK.md` | Instructor presentation (Marp) |
 | Lab Guide | `docs/workshop/HANDS-ON-LAB.md` | Step-by-step participant guide |
-| Learning Track | `docs/workshop/LERNPFAD.md` | Sporen milestones and badges |
+| Learning Track | `docs/workshop/LERNPFAD.md` | Badge milestones and progression |
 | Tool Reference | `docs/workshop/TOOLS.md` | Complete tool documentation |
 | Validation Script | `scripts/workshop-check.sh` | Automated checkpoint validation |
 
@@ -216,4 +216,4 @@ This agenda covers **Level 101** (Blocks 1–6). The full curriculum continues:
 | **301** | `docs/workshop/LEVEL-301.md` (Blocks 11–15) | 1 day | Deep dive — CI/CD engineering, K8s strategy, release simulation |
 | **401** | `docs/workshop/LEVEL-401.md` (Blocks 16–19) | 1 day | Engineering — RocksDB tuning, JVM optimization, capacity planning |
 
-**Total curriculum:** 3.5 days | 19 blocks | 17 Sporen | 1 Grossmeister
+**Total curriculum:** 3.5 days | 19 blocks | 17 Badges | 1 Grand Master

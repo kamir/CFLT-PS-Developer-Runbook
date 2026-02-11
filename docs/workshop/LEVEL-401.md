@@ -1,4 +1,4 @@
-# Level 401 — Die Kunst der Optimierung
+# Level 401 — Art of Optimization
 
 > *The art of optimization.*
 > Full-day engineering deep dive (6h) — performance tuning, RocksDB, production hardening.
@@ -16,23 +16,23 @@
 
 ## Schedule
 
-| Time | Block | Topic | Sporn |
+| Time | Block | Topic | Badge |
 |---|---|---|---|
 | 09:00 – 09:15 | Opening | Level 401 objectives, performance mindset | — |
-| 09:15 – 10:45 | **Block 16** | Producer & Consumer Tuning | Tuner-Sporn |
+| 09:15 – 10:45 | **Block 16** | Producer & Consumer Tuning | Tuner Badge |
 | 10:45 – 11:00 | *Break* | | |
-| 11:00 – 12:30 | **Block 17** | Kafka Streams & RocksDB Optimization | Ingenieur-Sporn |
+| 11:00 – 12:30 | **Block 17** | Kafka Streams & RocksDB Optimization | Engineer Badge |
 | 12:30 – 13:30 | *Lunch* | | |
-| 13:30 – 15:00 | **Block 18** | Kubernetes Resource Tuning & JVM Optimization | Architekt-Sporn |
+| 13:30 – 15:00 | **Block 18** | Kubernetes Resource Tuning & JVM Optimization | Architect Badge |
 | 15:00 – 15:15 | *Break* | | |
-| 15:15 – 16:30 | **Block 19** | Production Load Testing & Capacity Planning | Feldherr-Sporn |
-| 16:30 – 17:00 | Closing | Recap, certification | Grossmeister |
+| 15:15 – 16:30 | **Block 19** | Production Load Testing & Capacity Planning | Field Marshal Badge |
+| 16:30 – 17:00 | Closing | Recap, certification | Grand Master |
 
 ---
 
 ## Block 16 — Producer & Consumer Tuning
 
-### Goal: Earn the **Tuner-Sporn**
+### Goal: Earn the **Tuner Badge**
 
 ---
 
@@ -171,7 +171,7 @@ kafka-consumer-perf-test \
 
 ## Block 17 — Kafka Streams & RocksDB Optimization
 
-### Goal: Earn the **Ingenieur-Sporn**
+### Goal: Earn the **Engineer Badge**
 
 > *This is the engineering heart of Level 401.*
 
@@ -339,7 +339,7 @@ acceptable.recovery.lag=10000      # Default: 10000
 
 ## Block 18 — Kubernetes Resource Tuning & JVM Optimization
 
-### Goal: Earn the **Architekt-Sporn**
+### Goal: Earn the **Architect Badge**
 
 ---
 
@@ -442,7 +442,7 @@ kubectl logs -n confluent-apps-prod -l app=fraud-detection | grep "GC"
 
 ## Block 19 — Production Load Testing & Capacity Planning
 
-### Goal: Earn the **Feldherr-Sporn**
+### Goal: Earn the **Field Marshal Badge**
 
 ---
 
@@ -564,17 +564,17 @@ kafka-consumer-perf-test \
 ## Complete Learning Path Summary
 
 ```
-Level 101 — Sich die Sporen verdienen    (1 day)
-  Blocks 1–6, Sporen: Bronze → Diamant → Meister-Sporn
+Level 101 — Earn Your Badges    (1 day)
+  Blocks 1–6, Badges: Bronze → Diamant → Master Badge
 
-Level 201 — Das Werkzeug kennen           (half day)
-  Blocks 7–10, Sporen: Schmied → Melder → Werkzeug-Meister
+Level 201 — Know the Tools           (half day)
+  Blocks 7–10, Badges: Smith → Messenger → Tool Master
 
-Level 301 — Die Werkstatt meistern        (1 day)
-  Blocks 11–15, Sporen: Pipeline → General → Werkstatt-Meister
+Level 301 — Master the Workshop        (1 day)
+  Blocks 11–15, Badges: Pipeline → General → Workshop Master
 
-Level 401 — Die Kunst der Optimierung     (1 day)
-  Blocks 16–19, Sporen: Tuner → Feldherr → Grossmeister
+Level 401 — Art of Optimization     (1 day)
+  Blocks 16–19, Badges: Tuner → Field Marshal → Grand Master
 ```
 
-**Total:** 3.5 days | 19 blocks | 17 Sporen | 1 Grossmeister
+**Total:** 3.5 days | 19 blocks | 17 Badges | 1 Grand Master

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# workshop-check.sh — Validates workshop block completion (Sporen)
+# workshop-check.sh — Validates workshop block completion (Badges)
 #
 # Usage:
-#   ./scripts/workshop-check.sh block1    # Bronzener Sporn
-#   ./scripts/workshop-check.sh block2    # Silberner Sporn
-#   ./scripts/workshop-check.sh block3    # Goldener Sporn
-#   ./scripts/workshop-check.sh block4    # Eiserner Sporn
-#   ./scripts/workshop-check.sh block5    # Stahlerner Sporn
-#   ./scripts/workshop-check.sh block6    # Diamantener Sporn
-#   ./scripts/workshop-check.sh final     # Meister-Sporn (all blocks)
+#   ./scripts/workshop-check.sh block1    # Bronze Badge
+#   ./scripts/workshop-check.sh block2    # Silver Badge
+#   ./scripts/workshop-check.sh block3    # Gold Badge
+#   ./scripts/workshop-check.sh block4    # Iron Badge
+#   ./scripts/workshop-check.sh block5    # Steel Badge
+#   ./scripts/workshop-check.sh block6    # Diamond Badge
+#   ./scripts/workshop-check.sh final     # Master Badge (all blocks)
 # ==============================================================================
 set -euo pipefail
 
@@ -27,11 +27,11 @@ pass()  { echo -e "  ${GREEN}[PASS]${NC} $1"; PASS_COUNT=$((PASS_COUNT + 1)); }
 fail()  { echo -e "  ${RED}[FAIL]${NC} $1"; FAIL_COUNT=$((FAIL_COUNT + 1)); }
 warn()  { echo -e "  ${YELLOW}[WARN]${NC} $1"; }
 header(){ echo -e "\n${BOLD}========================================"; echo "  $1"; echo -e "========================================${NC}"; }
-sporn() { echo -e "\n  ${CYAN}${BOLD}>>> $1 <<<${NC}\n"; }
+badge() { echo -e "\n  ${CYAN}${BOLD}>>> $1 <<<${NC}\n"; }
 
-# ---------- Block 1: Bronzener Sporn ----------
+# ---------- Block 1: Bronze Badge ----------
 check_block1() {
-    header "Block 1 — Bronzener Sporn"
+    header "Block 1 — Bronze Badge"
 
     # Docker containers running
     if docker ps --format '{{.Names}}' 2>/dev/null | grep -q "broker"; then
@@ -67,13 +67,13 @@ check_block1() {
     fi
 
     if [ $FAIL_COUNT -eq 0 ]; then
-        sporn "BRONZENER SPORN EARNED!"
+        badge "BRONZE BADGE EARNED!"
     fi
 }
 
-# ---------- Block 2: Silberner Sporn ----------
+# ---------- Block 2: Silver Badge ----------
 check_block2() {
-    header "Block 2 — Silberner Sporn"
+    header "Block 2 — Silver Badge"
 
     # Project builds
     if [ -f producer-consumer-app/target/producer-consumer-app-1.0.0-SNAPSHOT.jar ]; then
@@ -97,13 +97,13 @@ check_block2() {
     fi
 
     if [ $FAIL_COUNT -eq 0 ]; then
-        sporn "SILBERNER SPORN EARNED!"
+        badge "SILVER BADGE EARNED!"
     fi
 }
 
-# ---------- Block 3: Goldener Sporn ----------
+# ---------- Block 3: Gold Badge ----------
 check_block3() {
-    header "Block 3 — Goldener Sporn"
+    header "Block 3 — Gold Badge"
 
     # KStreams JAR exists
     if [ -f kstreams-app/target/kstreams-app-1.0.0-SNAPSHOT.jar ]; then
@@ -134,13 +134,13 @@ check_block3() {
     fi
 
     if [ $FAIL_COUNT -eq 0 ]; then
-        sporn "GOLDENER SPORN EARNED!"
+        badge "GOLD BADGE EARNED!"
     fi
 }
 
-# ---------- Block 4: Eiserner Sporn ----------
+# ---------- Block 4: Iron Badge ----------
 check_block4() {
-    header "Block 4 — Eiserner Sporn"
+    header "Block 4 — Iron Badge"
 
     # Config files exist for all environments
     for env in dev qa prod; do
@@ -168,13 +168,13 @@ check_block4() {
     fi
 
     if [ $FAIL_COUNT -eq 0 ]; then
-        sporn "EISERNER SPORN EARNED!"
+        badge "IRON BADGE EARNED!"
     fi
 }
 
-# ---------- Block 5: Stahlerner Sporn ----------
+# ---------- Block 5: Steel Badge ----------
 check_block5() {
-    header "Block 5 — Stahlerner Sporn"
+    header "Block 5 — Steel Badge"
 
     # Dockerfiles exist
     for df in docker/Dockerfile.producer-consumer docker/Dockerfile.kstreams; do
@@ -229,13 +229,13 @@ check_block5() {
     fi
 
     if [ $FAIL_COUNT -eq 0 ]; then
-        sporn "STAHLERNER SPORN EARNED!"
+        badge "STEEL BADGE EARNED!"
     fi
 }
 
-# ---------- Block 6: Diamantener Sporn ----------
+# ---------- Block 6: Diamond Badge ----------
 check_block6() {
-    header "Block 6 — Diamantener Sporn"
+    header "Block 6 — Diamond Badge"
 
     # Diagnostics script exists and is executable
     if [ -x scripts/diagnose.sh ]; then
@@ -266,11 +266,11 @@ check_block6() {
     fi
 
     if [ $FAIL_COUNT -eq 0 ]; then
-        sporn "DIAMANTENER SPORN EARNED!"
+        badge "DIAMOND BADGE EARNED!"
     fi
 }
 
-# ---------- Final: Meister-Sporn ----------
+# ---------- Final: Master Badge ----------
 check_final() {
     check_block1
     check_block2
@@ -288,7 +288,7 @@ check_final() {
     if [ $FAIL_COUNT -eq 0 ]; then
         echo -e "${BOLD}${CYAN}"
         echo "  =================================================="
-        echo "    MEISTER-SPORN EARNED!"
+        echo "    MASTER BADGE EARNED!"
         echo "    Congratulations — you are now a"
         echo "    Confluent Cloud Java Developer!"
         echo "  =================================================="
@@ -310,13 +310,13 @@ case "${1:-}" in
     *)
         echo "Usage: $0 [block1|block2|block3|block4|block5|block6|final]"
         echo ""
-        echo "  block1  — Bronzener Sporn  (Local Dev Environment)"
-        echo "  block2  — Silberner Sporn  (Producer/Consumer & PCI-DSS)"
-        echo "  block3  — Goldener Sporn   (Kafka Streams)"
-        echo "  block4  — Eiserner Sporn   (Configuration & Git-Flow)"
-        echo "  block5  — Stahlerner Sporn (Docker, K8s & GitOps)"
-        echo "  block6  — Diamantener Sporn(Troubleshooting)"
-        echo "  final   — Meister-Sporn    (All blocks)"
+        echo "  block1  — Bronze Badge  (Local Dev Environment)"
+        echo "  block2  — Silver Badge  (Producer/Consumer & PCI-DSS)"
+        echo "  block3  — Gold Badge    (Kafka Streams)"
+        echo "  block4  — Iron Badge    (Configuration & Git-Flow)"
+        echo "  block5  — Steel Badge   (Docker, K8s & GitOps)"
+        echo "  block6  — Diamond Badge (Troubleshooting)"
+        echo "  final   — Master Badge  (All blocks)"
         exit 1
         ;;
 esac

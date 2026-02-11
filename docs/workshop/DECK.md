@@ -30,7 +30,7 @@ style: |
   }
   table { font-size: 0.8em; }
   code { font-size: 0.85em; }
-  .sporn { font-size: 1.4em; }
+  .badge { font-size: 1.4em; }
 ---
 
 <!-- _class: title -->
@@ -48,16 +48,16 @@ style: |
 
 ## Agenda
 
-| Block | Topic | Sporn |
+| Block | Topic | Badge |
 |---|---|---|
-| 1 | Local Dev Environment & First Messages | Bronzener Sporn |
-| 2 | Producer/Consumer Deep Dive & PCI-DSS | Silberner Sporn |
-| 3 | Kafka Streams — Fraud Detection | Goldener Sporn |
-| 4 | Configuration & Git-Flow | Eiserner Sporn |
-| 5 | Docker, Kubernetes & GitOps | Stahlerner Sporn |
-| 6 | Troubleshooting & Diagnostics | Diamantener Sporn |
+| 1 | Local Dev Environment & First Messages | Bronze Badge |
+| 2 | Producer/Consumer Deep Dive & PCI-DSS | Silver Badge |
+| 3 | Kafka Streams — Fraud Detection | Gold Badge |
+| 4 | Configuration & Git-Flow | Iron Badge |
+| 5 | Docker, Kubernetes & GitOps | Steel Badge |
+| 6 | Troubleshooting & Diagnostics | Diamond Badge |
 
-**Earn all 6 Sporen = Meister-Sporn**
+**Earn all 6 Badges = Master Badge**
 
 ---
 
@@ -130,7 +130,7 @@ confluent-java-toolkit/
 # Local Dev Environment
 # & First Messages
 
-<p class="sporn">Bronzener Sporn</p>
+<p class="badge">Bronze Badge</p>
 
 ---
 
@@ -231,7 +231,7 @@ P:2 | O:0 | K:def-456 | V:{"transaction_id":"def-456","card_number_masked":"****
 
 # Block 1 — Checkpoint
 
-## Validate your Bronzener Sporn
+## Validate your Bronze Badge
 
 ```bash
 ./scripts/workshop-check.sh block1
@@ -240,7 +240,7 @@ P:2 | O:0 | K:def-456 | V:{"transaction_id":"def-456","card_number_masked":"****
 Expected:
 ```
 ========================================
-  Block 1 — Bronzener Sporn
+  Block 1 — Bronze Badge
 ========================================
   [PASS] Docker containers running (broker, schema-registry)
   [PASS] Topic 'payments' exists with 6 partitions
@@ -248,7 +248,7 @@ Expected:
   [PASS] Topic 'approved-payments' exists
   [PASS] Messages found in 'payments' topic
 
-  >>> BRONZENER SPORN EARNED! <<<
+  >>> BRONZE BADGE EARNED! <<<
 ```
 
 ---
@@ -259,7 +259,7 @@ Expected:
 # Producer / Consumer
 # Deep Dive & PCI-DSS
 
-<p class="sporn">Silberner Sporn</p>
+<p class="badge">Silver Badge</p>
 
 ---
 
@@ -367,7 +367,7 @@ records.forEach(record -> {
 # Kafka Streams
 # Fraud Detection
 
-<p class="sporn">Goldener Sporn</p>
+<p class="badge">Gold Badge</p>
 
 ---
 
@@ -495,7 +495,7 @@ Idea: Transactions > 3000 with `merchant_id=MERCH-004` are suspicious.
 # Configuration
 # & Git-Flow
 
-<p class="sporn">Eiserner Sporn</p>
+<p class="badge">Iron Badge</p>
 
 ---
 
@@ -591,7 +591,7 @@ develop ---*---*--*--------------*--------*--*-----
 # Docker, Kubernetes
 # & GitOps
 
-<p class="sporn">Stahlerner Sporn</p>
+<p class="badge">Steel Badge</p>
 
 ---
 
@@ -703,7 +703,7 @@ Developer        GitHub          CI/CD           ArgoCD         K8s
 # Troubleshooting
 # & Diagnostics
 
-<p class="sporn">Diamantener Sporn</p>
+<p class="badge">Diamond Badge</p>
 
 ---
 
@@ -818,25 +818,25 @@ curl -X POST \
 
 <!-- _class: divider -->
 
-# Meister-Sporn
+# Master Badge
 # Recap & Certification
 
 ---
 
 # What You've Earned Today
 
-| Block | Sporn | Skill |
+| Block | Badge | Skill |
 |---|---|---|
-| 1 | Bronzener Sporn | Local environment, first Kafka messages |
-| 2 | Silberner Sporn | Producer/Consumer, PCI-DSS masking |
-| 3 | Goldener Sporn | Kafka Streams topology, testing |
-| 4 | Eiserner Sporn | Configuration management, Git-Flow |
-| 5 | Stahlerner Sporn | Docker, Kubernetes, GitOps |
-| 6 | Diamantener Sporn | Troubleshooting, diagnostics |
+| 1 | Bronze Badge | Local environment, first Kafka messages |
+| 2 | Silver Badge | Producer/Consumer, PCI-DSS masking |
+| 3 | Gold Badge | Kafka Streams topology, testing |
+| 4 | Iron Badge | Configuration management, Git-Flow |
+| 5 | Steel Badge | Docker, Kubernetes, GitOps |
+| 6 | Diamond Badge | Troubleshooting, diagnostics |
 
-**All 6 Sporen = Meister-Sporn**
+**All 6 Badges = Master Badge**
 
-> *"Sich die Sporen verdienen"*
+> *"Earn Your Badges"*
 > You've earned your spurs as a Confluent Cloud Java developer!
 
 ---
@@ -866,30 +866,30 @@ curl -X POST \
 
 ---
 
-# The Learning Path — 4 Levels, 19 Blocks, 17 Sporen
+# The Learning Path — 4 Levels, 19 Blocks, 17 Badges
 
 ```
 Level 101                Level 201              Level 301              Level 401
-"Sich die Sporen         "Das Werkzeug          "Die Werkstatt         "Die Kunst der
+"Earn Your Badges         "Know the Tools          "Master the Workshop         "Art of Optimization
  verdienen"               kennen"                meistern"              Optimierung"
 
  1 day                    half day               1 day                  1 day
  Blocks 1-6              Blocks 7-10            Blocks 11-15           Blocks 16-19
- 6 Sporen                4 Sporen               5 Sporen               4 Sporen
+ 6 Badges                4 Badges               5 Badges               4 Badges
 
- Meister-Sporn           Werkzeug-Meister       Werkstatt-Meister      Grossmeister
+ Master Badge           Tool Master       Workshop Master      Grand Master
 ```
 
 ---
 
-# Level 201 — Das Werkzeug kennen (half day)
+# Level 201 — Know the Tools (half day)
 
-| Block | Sporn | Tools |
+| Block | Badge | Tools |
 |---|---|---|
-| **7** | Schmied-Sporn | **Make** + **Act** — build automation |
-| **8** | Ritter-Sporn | **kind** + **Helm** — local K8s |
-| **9** | Prüfer-Sporn | **k6** + **ngrok** + **Shadow Traffic** |
-| **10** | Melder-Sporn | **Confluent CLI** + **Kafka CLI** + **kcat** mastery |
+| **7** | Smith Badge | **Make** + **Act** — build automation |
+| **8** | Knight Badge | **kind** + **Helm** — local K8s |
+| **9** | Inspector Badge | **k6** + **ngrok** + **Shadow Traffic** |
+| **10** | Messenger Badge | **Confluent CLI** + **Kafka CLI** + **kcat** mastery |
 
 Every tool with: intro, repo link, role map, and runnable example.
 
@@ -897,15 +897,15 @@ See: `docs/workshop/LEVEL-201.md` + `docs/workshop/TOOLS.md`
 
 ---
 
-# Level 301 — Die Werkstatt meistern (1 day)
+# Level 301 — Master the Workshop (1 day)
 
-| Block | Sporn | Deep Dive |
+| Block | Badge | Deep Dive |
 |---|---|---|
-| **11** | Pipeline-Sporn | CI/CD engineering with Make + Act |
-| **12** | Strategen-Sporn | K8s deployment: kind + Helm + Kustomize |
-| **13** | Lastprüfer-Sporn | k6 load testing + shadow traffic design |
-| **14** | Kommandant-Sporn | Confluent Cloud automation + ops runbooks |
-| **15** | General-Sporn | End-to-end release simulation |
+| **11** | Pipeline Badge | CI/CD engineering with Make + Act |
+| **12** | Strategist Badge | K8s deployment: kind + Helm + Kustomize |
+| **13** | Load Tester Badge | k6 load testing + shadow traffic design |
+| **14** | Commander Badge | Confluent Cloud automation + ops runbooks |
+| **15** | General Badge | End-to-end release simulation |
 
 Integrate all tools into team workflows, CI/CD, and release planning.
 
@@ -913,14 +913,14 @@ See: `docs/workshop/LEVEL-301.md`
 
 ---
 
-# Level 401 — Die Kunst der Optimierung (1 day)
+# Level 401 — Art of Optimization (1 day)
 
-| Block | Sporn | Engineering |
+| Block | Badge | Engineering |
 |---|---|---|
-| **16** | Tuner-Sporn | Producer/consumer throughput tuning |
-| **17** | Ingenieur-Sporn | **RocksDB** configuration deep dive |
-| **18** | Architekt-Sporn | JVM tuning + K8s resource optimization |
-| **19** | Feldherr-Sporn | Production load testing + capacity planning |
+| **16** | Tuner Badge | Producer/consumer throughput tuning |
+| **17** | Engineer Badge | **RocksDB** configuration deep dive |
+| **18** | Architect Badge | JVM tuning + K8s resource optimization |
+| **19** | Field Marshal Badge | Production load testing + capacity planning |
 
 The engineering heart: RocksDB block cache, write buffers, compaction,
 JVM G1GC tuning, off-heap memory budgeting, and production readiness.

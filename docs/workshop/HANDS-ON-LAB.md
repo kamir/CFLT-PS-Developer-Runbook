@@ -29,7 +29,7 @@ cd CFLT-PS-Developer-Runbook
 
 ## Block 1 — Local Dev Environment & First Messages
 
-### Goal: Earn the **Bronzener Sporn**
+### Goal: Earn the **Bronze Badge**
 
 ---
 
@@ -207,7 +207,7 @@ Run the validation:
 
 ```
 ========================================
-  Block 1 — Bronzener Sporn
+  Block 1 — Bronze Badge
 ========================================
   [PASS] Docker containers running (broker, schema-registry)
   [PASS] Topic 'payments' exists with partitions
@@ -215,14 +215,14 @@ Run the validation:
   [PASS] Topic 'approved-payments' exists
   [PASS] Messages found in 'payments' topic
 
-  >>> BRONZENER SPORN EARNED! <<<
+  >>> BRONZE BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 2 — Producer/Consumer Deep Dive & PCI-DSS
 
-### Goal: Earn the **Silberner Sporn**
+### Goal: Earn the **Silver Badge**
 
 ---
 
@@ -358,14 +358,14 @@ Expected: All tests pass.
 ```
 
 ```
-  >>> SILBERNER SPORN EARNED! <<<
+  >>> SILVER BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 3 — Kafka Streams: Fraud Detection
 
-### Goal: Earn the **Goldener Sporn**
+### Goal: Earn the **Gold Badge**
 
 ---
 
@@ -503,14 +503,14 @@ kcat -b localhost:9092 -t approved-payments -C -o beginning -c 5 -e
 ```
 
 ```
-  >>> GOLDENER SPORN EARNED! <<<
+  >>> GOLD BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 4 — Configuration & Git-Flow
 
-### Goal: Earn the **Eiserner Sporn**
+### Goal: Earn the **Iron Badge**
 
 ---
 
@@ -593,14 +593,14 @@ git checkout -  # go back to previous branch
 ```
 
 ```
-  >>> EISERNER SPORN EARNED! <<<
+  >>> IRON BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 5 — Docker, Kubernetes & GitOps
 
-### Goal: Earn the **Stahlerner Sporn**
+### Goal: Earn the **Steel Badge**
 
 ---
 
@@ -686,14 +686,14 @@ cat .github/workflows/cd-gitops.yaml
 ```
 
 ```
-  >>> STAHLERNER SPORN EARNED! <<<
+  >>> STEEL BADGE EARNED! <<<
 ```
 
 ---
 
 ## Block 6 — Troubleshooting & Diagnostics
 
-### Goal: Earn the **Diamantener Sporn**
+### Goal: Earn the **Diamond Badge**
 
 ---
 
@@ -814,7 +814,7 @@ This should fail with a 409 error. **That's the expected behavior** — Schema R
 ```
 
 ```
-  >>> DIAMANTENER SPORN EARNED! <<<
+  >>> DIAMOND BADGE EARNED! <<<
 ```
 
 ---
@@ -829,7 +829,7 @@ If you've passed all 6 checkpoints:
 
 ```
 ========================================
-  MEISTER-SPORN EARNED!
+  MASTER BADGE EARNED!
   Congratulations — you are now a
   Confluent Cloud Java Developer!
 ========================================
@@ -850,4 +850,4 @@ cd docker && docker compose down -v && cd ..
 
 ---
 
-> *"Sich die Sporen verdienen"* — You've earned your spurs. Now ride!
+> *"Earn Your Badges"* — You've earned your spurs. Now ride!

@@ -1,4 +1,4 @@
-# Level 301 — Die Werkstatt meistern
+# Level 301 — Master the Workshop
 
 > *Master the workshop.*
 > Full-day session (6h) — integrating tools into team workflows, CI/CD, and release planning.
@@ -7,32 +7,32 @@
 
 ## Prerequisites
 
-- Level 101 complete (Meister-Sporn — all 6 Sporen)
-- Level 201 complete (Werkzeug-Meister — all 4 tool Sporen)
+- Level 101 complete (Master Badge — all 6 Badges)
+- Level 201 complete (Tool Master — all 4 tool Badges)
 - Access to a Confluent Cloud environment (DEV or sandbox)
 
 ---
 
 ## Schedule
 
-| Time | Block | Topic | Sporn |
+| Time | Block | Topic | Badge |
 |---|---|---|---|
 | 09:00 – 09:15 | Opening | Level 301 objectives, team workflow overview | — |
-| 09:15 – 10:30 | **Block 11** | CI/CD Pipeline Engineering with Make & Act | Pipeline-Sporn |
+| 09:15 – 10:30 | **Block 11** | CI/CD Pipeline Engineering with Make & Act | Pipeline Badge |
 | 10:30 – 10:45 | *Break* | | |
-| 10:45 – 12:00 | **Block 12** | Kubernetes Deployment Strategy (kind + Helm + Kustomize) | Strategen-Sporn |
+| 10:45 – 12:00 | **Block 12** | Kubernetes Deployment Strategy (kind + Helm + Kustomize) | Strategist Badge |
 | 12:00 – 13:00 | *Lunch* | | |
-| 13:00 – 14:15 | **Block 13** | Load Testing & Traffic Management (k6 + Shadow) | Lastprüfer-Sporn |
+| 13:00 – 14:15 | **Block 13** | Load Testing & Traffic Management (k6 + Shadow) | Load Tester Badge |
 | 14:15 – 14:30 | *Break* | | |
-| 14:30 – 15:45 | **Block 14** | Confluent Cloud Automation & Operational Runbooks | Kommandant-Sporn |
-| 15:45 – 16:30 | **Block 15** | End-to-End Release Simulation | General-Sporn |
-| 16:30 – 17:00 | Closing | Recap, Level 401 preview | Werkstatt-Meister |
+| 14:30 – 15:45 | **Block 14** | Confluent Cloud Automation & Operational Runbooks | Commander Badge |
+| 15:45 – 16:30 | **Block 15** | End-to-End Release Simulation | General Badge |
+| 16:30 – 17:00 | Closing | Recap, Level 401 preview | Workshop Master |
 
 ---
 
 ## Block 11 — CI/CD Pipeline Engineering
 
-### Goal: Earn the **Pipeline-Sporn**
+### Goal: Earn the **Pipeline Badge**
 
 ---
 
@@ -153,7 +153,7 @@ Test locally: `act pull_request --workflows .github/workflows/pr-check.yaml`
 
 ## Block 12 — Kubernetes Deployment Strategy
 
-### Goal: Earn the **Strategen-Sporn**
+### Goal: Earn the **Strategist Badge**
 
 ---
 
@@ -263,7 +263,7 @@ kind delete cluster --name multi-env
 
 ## Block 13 — Load Testing & Traffic Management
 
-### Goal: Earn the **Lastprüfer-Sporn**
+### Goal: Earn the **Load Tester Badge**
 
 ---
 
@@ -379,7 +379,7 @@ diff <(jq -S . stable.json) <(jq -S . canary.json)
 
 ## Block 14 — Confluent Cloud Automation & Operational Runbooks
 
-### Goal: Earn the **Kommandant-Sporn**
+### Goal: Earn the **Commander Badge**
 
 ---
 
@@ -473,7 +473,7 @@ fi
 
 ## Block 15 — End-to-End Release Simulation
 
-### Goal: Earn the **General-Sporn**
+### Goal: Earn the **General Badge**
 
 > *The general leads the campaign. You orchestrate the release.*
 
@@ -551,6 +551,6 @@ make docker-build                  # Container images
     WERKSTATT-MEISTER — Level 301 Complete!
     You can plan, build, test, and release
     with the full tool suite.
-    Next: Level 401 — Die Kunst der Optimierung.
+    Next: Level 401 — Art of Optimization.
   ================================================
 ```

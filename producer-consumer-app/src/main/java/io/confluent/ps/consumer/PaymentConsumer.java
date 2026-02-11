@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class PaymentConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentConsumer.class);
-    private static final String TOPIC = "payments";
+    private static final String DEFAULT_TOPIC = "payments";
     private static final AtomicBoolean running = new AtomicBoolean(true);
 
     public static void main(String[] args) {
@@ -48,9 +48,10 @@ public class PaymentConsumer {
             running.set(false);
         }));
 
+        String topic = resolveTopic();
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
-            consumer.subscribe(Collections.singletonList(TOPIC));
-            log.info("PaymentConsumer started — subscribed to topic '{}'", TOPIC);
+            consumer.subscribe(Collections.singletonList(topic));
+            log.info("PaymentConsumer started — subscribed to topic '{}'", topic);
 
             long totalConsumed = 0;
             while (running.get()) {
@@ -76,5 +77,17 @@ public class PaymentConsumer {
 
             log.info("PaymentConsumer stopped after consuming {} records", totalConsumed);
         }
+    }
+
+    private static String resolveTopic() {
+        String fromEnv = System.getenv("CONSUME_TOPIC");
+        if (fromEnv != null && !fromEnv.isBlank()) {
+            return fromEnv.trim();
+        }
+        String fromProp = System.getProperty("consumer.topic");
+        if (fromProp != null && !fromProp.isBlank()) {
+            return fromProp.trim();
+        }
+        return DEFAULT_TOPIC;
     }
 }

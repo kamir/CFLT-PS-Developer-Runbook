@@ -9,6 +9,10 @@ SHELL := /bin/bash
 PROJECT_VERSION  := 1.0.0-SNAPSHOT
 DOCKER_REGISTRY  := registry.example.com/confluent-ps
 KIND_CLUSTER     := kafka-dev
+CLIENT_PROPERTIES ?= $(abspath client.properties)
+DEMO_PRODUCER_JAR ?= producer-consumer-app/target/producer-consumer-app-$(PROJECT_VERSION).jar
+DEMO_STREAMS_JAR  ?= kstreams-app/target/kstreams-app-$(PROJECT_VERSION).jar
+DEMO_MODE         ?= produce
 
 # ---------- Build ----------
 .PHONY: build
@@ -48,7 +52,11 @@ ci-lint:                                       ## Run static analysis (spotbugs)
 ci-scan:                                       ## Security scan with Trivy
 	@command -v trivy >/dev/null 2>&1 && \
 	  trivy fs --severity CRITICAL,HIGH --exit-code 0 . || \
-	  echo "[WARN] Trivy not installed — skipping security scan"
+	  (command -v docker >/dev/null 2>&1 && \
+	    echo "[INFO] Trivy not installed — running via Docker" && \
+	    docker run --rm -v "$$PWD":/work -w /work aquasec/trivy:0.53.0 \
+	      fs --severity CRITICAL,HIGH --exit-code 0 .) || \
+	  echo "[WARN] Trivy not installed and Docker unavailable — skipping security scan"
 
 .PHONY: ci-k8s-validate
 ci-k8s-validate:                               ## Validate all Kustomize overlays
@@ -124,6 +132,51 @@ k8s-prod:                                      ## Apply K8s PROD overlay
 .PHONY: diagnose
 diagnose:                                      ## Run full diagnostics
 	./scripts/diagnose.sh full
+
+.PHONY: kshark-init
+kshark-init:                                   ## Install kshark into ./tools
+	./scripts/kshark-init.sh
+
+.PHONY: client-properties
+client-properties:                             ## Generate client.properties from .env
+	./scripts/create-client-properties.sh
+
+.PHONY: kshark-scan
+kshark-scan:                                   ## Run kshark against current cluster
+	KSHARK_TIMEOUT=120s ./scripts/kshark-scan.sh
+
+.PHONY: demos
+demos:                                         ## Build and run the producer/consumer demo
+	mvn -pl producer-consumer-app -am package -DskipTests -B --no-transfer-progress
+	@test -f "$(DEMO_PRODUCER_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_PRODUCER_JAR)" && exit 1)
+	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
+	KAFKA_CLIENT_PROPERTIES="$(CLIENT_PROPERTIES)" \
+	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_PRODUCER_JAR)" "$(DEMO_MODE)"
+
+.PHONY: demo-produce
+demo-produce:                                  ## Run demo producer (uses client.properties)
+	mvn -pl producer-consumer-app -am package -DskipTests -B --no-transfer-progress
+	@test -f "$(DEMO_PRODUCER_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_PRODUCER_JAR)" && exit 1)
+	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
+	KAFKA_CLIENT_PROPERTIES="$(CLIENT_PROPERTIES)" \
+	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_PRODUCER_JAR)" produce
+
+.PHONY: demo-consume
+demo-consume:                                  ## Run demo consumer (uses client.properties)
+	mvn -pl producer-consumer-app -am package -DskipTests -B --no-transfer-progress
+	@test -f "$(DEMO_PRODUCER_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_PRODUCER_JAR)" && exit 1)
+	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
+	KAFKA_CLIENT_PROPERTIES="$(CLIENT_PROPERTIES)" \
+	CONSUME_TOPIC=approved-payments \
+	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_PRODUCER_JAR)" consume
+
+.PHONY: demo-process
+demo-process:                                  ## Run demo Kafka Streams processor (uses client.properties)
+	mvn -pl kstreams-app -am package -DskipTests -B --no-transfer-progress
+	@test -f "$(DEMO_STREAMS_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_STREAMS_JAR)" && exit 1)
+	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
+	KAFKA_CLIENT_PROPERTIES="$(CLIENT_PROPERTIES)" \
+	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_STREAMS_JAR)"
 
 .PHONY: workshop
 workshop:                                      ## Run workshop checkpoint (all blocks)

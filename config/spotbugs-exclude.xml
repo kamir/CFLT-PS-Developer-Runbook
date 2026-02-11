@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Exclude generated Avro classes -->
+    <Match>
+        <Class name="io.confluent.ps.model.Payment" />
+    </Match>
+    <Match>
+        <Class name="io.confluent.ps.model.FraudAlert" />
+    </Match>
+</FindBugsFilter>

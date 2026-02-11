@@ -1,49 +1,49 @@
 # Lernpfad — Confluent Cloud Java Developer
 
-> *"Sich die Sporen verdienen"*
+> *"Earn Your Badges"*
 > Earn your spurs on the path from apprentice to master.
 
 ---
 
-## The Sporen (Milestones)
+## The Badges (Milestones)
 
-Each Sporn represents a skill level earned through hands-on practice.
-Complete all 6 to earn the **Meister-Sporn**.
+Each Badge represents a skill level earned through hands-on practice.
+Complete all 6 to earn the **Master Badge**.
 
 ```
                                     +------------------+
-                                    |  MEISTER-SPORN   |
+                                    |  MASTER BADGE   |
                                     |  Full mastery    |
                                     +--------+---------+
                                              |
                         +--------------------+--------------------+
                         |                                         |
                +--------+---------+                    +----------+--------+
-               | DIAMANTENER SPORN|                    | STAHLERNER SPORN  |
+               | DIAMOND BADGE|                    | STEEL BADGE  |
                | Troubleshooting  |                    | Docker & GitOps   |
                +--------+---------+                    +----------+--------+
                         |                                         |
                +--------+---------+                    +----------+--------+
-               | EISERNER SPORN   |                    | GOLDENER SPORN    |
+               | IRON BADGE   |                    | GOLD BADGE    |
                | Config & GitFlow |                    | Kafka Streams     |
                +--------+---------+                    +----------+--------+
                         |                                         |
                         +--------------------+--------------------+
                                              |
                                     +--------+---------+
-                                    | SILBERNER SPORN  |
+                                    | SILVER BADGE  |
                                     | Producer/Consumer|
                                     +--------+---------+
                                              |
                                     +--------+---------+
-                                    | BRONZENER SPORN  |
+                                    | BRONZE BADGE  |
                                     | Local Dev Setup  |
                                     +------------------+
 ```
 
 ---
 
-## Sporn 1 — Bronzener Sporn (Bronze)
+## Badge 1 — Bronze Badge
 
 **Topic:** Local Development Environment & First Messages
 
@@ -77,7 +77,7 @@ Complete all 6 to earn the **Meister-Sporn**.
 
 ---
 
-## Sporn 2 — Silberner Sporn (Silver)
+## Badge 2 — Silver Badge
 
 **Topic:** Producer/Consumer Deep Dive & PCI-DSS Compliance
 
@@ -111,7 +111,7 @@ Complete all 6 to earn the **Meister-Sporn**.
 
 ---
 
-## Sporn 3 — Goldener Sporn (Gold)
+## Badge 3 — Gold Badge
 
 **Topic:** Kafka Streams — Fraud Detection Topology
 
@@ -144,7 +144,7 @@ Complete all 6 to earn the **Meister-Sporn**.
 
 ---
 
-## Sporn 4 — Eiserner Sporn (Iron)
+## Badge 4 — Iron Badge
 
 **Topic:** Configuration Management & Git-Flow
 
@@ -178,7 +178,7 @@ Complete all 6 to earn the **Meister-Sporn**.
 
 ---
 
-## Sporn 5 — Stahlerner Sporn (Steel)
+## Badge 5 — Steel Badge
 
 **Topic:** Docker, Kubernetes & GitOps Deployment
 
@@ -212,7 +212,7 @@ Complete all 6 to earn the **Meister-Sporn**.
 
 ---
 
-## Sporn 6 — Diamantener Sporn (Diamond)
+## Badge 6 — Diamond Badge
 
 **Topic:** Troubleshooting & Diagnostics
 
@@ -245,15 +245,15 @@ Complete all 6 to earn the **Meister-Sporn**.
 
 ---
 
-## Meister-Sporn — Full Mastery
+## Master Badge — Full Mastery
 
-**Earned when:** All 6 Sporen are validated.
+**Earned when:** All 6 Badges are validated.
 
 ```bash
 ./scripts/workshop-check.sh final
 ```
 
-### What the Meister-Sporn Certifies
+### What the Master Badge Certifies
 
 The holder can:
 1. Set up and operate a local Kafka development environment
@@ -269,21 +269,21 @@ The holder can:
 +------------------------------------------------------------------+
 |                                                                  |
 |              CONFLUENT CLOUD JAVA DEVELOPER                      |
-|                    MEISTER-SPORN                                 |
+|                    MASTER BADGE                                 |
 |                                                                  |
 |  This certifies that                                             |
 |                                                                  |
 |     _______________________________                              |
 |                                                                  |
 |  has successfully completed the Hands-On Workshop                |
-|  and earned all 6 Sporen:                                        |
+|  and earned all 6 Badges:                                        |
 |                                                                  |
-|     Bronzener Sporn  - Local Development                         |
-|     Silberner Sporn  - Producer/Consumer & PCI-DSS               |
-|     Goldener Sporn   - Kafka Streams                             |
-|     Eiserner Sporn   - Configuration & Git-Flow                  |
-|     Stahlerner Sporn - Docker, K8s & GitOps                      |
-|     Diamantener Sporn - Troubleshooting                          |
+|     Bronze Badge  - Local Development                         |
+|     Silver Badge  - Producer/Consumer & PCI-DSS               |
+|     Gold Badge   - Kafka Streams                             |
+|     Iron Badge   - Configuration & Git-Flow                  |
+|     Steel Badge - Docker, K8s & GitOps                      |
+|     Diamond Badge - Troubleshooting                          |
 |                                                                  |
 |  Date: ________________    Instructor: ________________          |
 |                                                                  |
@@ -294,7 +294,7 @@ The holder can:
 
 ---
 
-## Advanced Levels — Beyond Meister-Sporn
+## Advanced Levels — Beyond Master Badge
 
 The learning path continues with three advanced levels. Each builds on all previous levels.
 
@@ -302,79 +302,79 @@ The learning path continues with three advanced levels. Each builds on all previ
   Level 101 (1 day)      Level 201 (half day)     Level 301 (1 day)      Level 401 (1 day)
 ┌─────────────────┐   ┌──────────────────────┐   ┌─────────────────┐   ┌──────────────────┐
 │ Blocks 1–6      │   │ Blocks 7–10          │   │ Blocks 11–15    │   │ Blocks 16–19     │
-│ 6 Sporen        │──>│ 4 Sporen             │──>│ 5 Sporen        │──>│ 4 Sporen         │
-│ Meister-Sporn   │   │ Werkzeug-Meister     │   │ Werkstatt-Meister│  │ Grossmeister     │
+│ 6 Badges        │──>│ 4 Badges             │──>│ 5 Badges        │──>│ 4 Badges         │
+│ Master Badge   │   │ Tool Master     │   │ Workshop Master│  │ Grand Master     │
 │                 │   │                      │   │                 │   │                  │
-│ "Sich die       │   │ "Das Werkzeug        │   │ "Die Werkstatt  │   │ "Die Kunst der   │
-│  Sporen         │   │  kennen"             │   │  meistern"      │   │  Optimierung"    │
+│ "Earn Your Badges│   │ "Know the Tools        │   │ "Master the Workshop  │   │ "Art of Optimization   │
+│  Badges         │   │  kennen"             │   │  meistern"      │   │  Optimierung"    │
 │  verdienen"     │   │                      │   │                 │   │                  │
 └─────────────────┘   └──────────────────────┘   └─────────────────┘   └──────────────────┘
 ```
 
 ---
 
-## Level 201 Sporen — Das Werkzeug kennen
+## Level 201 Badges — Know the Tools
 
-| Block | Sporn | Topic |
+| Block | Badge | Topic |
 |---|---|---|
-| 7 | **Schmied-Sporn** (Blacksmith) | Make & Act — Build Automation |
-| 8 | **Ritter-Sporn** (Knight) | kind & Helm — Local Kubernetes |
-| 9 | **Prüfer-Sporn** (Inspector) | k6, ngrok & Shadow Traffic — Testing |
-| 10 | **Melder-Sporn** (Herald) | Confluent CLI, Kafka CLI & kcat — Mastery |
+| 7 | **Smith Badge** | Make & Act — Build Automation |
+| 8 | **Knight Badge** | kind & Helm — Local Kubernetes |
+| 9 | **Inspector Badge** | k6, ngrok & Shadow Traffic — Testing |
+| 10 | **Messenger Badge** | Confluent CLI, Kafka CLI & kcat — Mastery |
 
-**Completion:** Werkzeug-Meister (Tool Master)
+**Completion:** Tool Master (Tool Master)
 
 See full details: `docs/workshop/LEVEL-201.md`
 
 ---
 
-## Level 301 Sporen — Die Werkstatt meistern
+## Level 301 Badges — Master the Workshop
 
-| Block | Sporn | Topic |
+| Block | Badge | Topic |
 |---|---|---|
-| 11 | **Pipeline-Sporn** | CI/CD Pipeline Engineering with Make & Act |
-| 12 | **Strategen-Sporn** | K8s Deployment Strategy (kind + Helm + Kustomize) |
-| 13 | **Lastprüfer-Sporn** | Load Testing & Traffic Management (k6 + Shadow) |
-| 14 | **Kommandant-Sporn** | Confluent Cloud Automation & Operational Runbooks |
-| 15 | **General-Sporn** | End-to-End Release Simulation |
+| 11 | **Pipeline Badge** | CI/CD Pipeline Engineering with Make & Act |
+| 12 | **Strategist Badge** | K8s Deployment Strategy (kind + Helm + Kustomize) |
+| 13 | **Load Tester Badge** | Load Testing & Traffic Management (k6 + Shadow) |
+| 14 | **Commander Badge** | Confluent Cloud Automation & Operational Runbooks |
+| 15 | **General Badge** | End-to-End Release Simulation |
 
-**Completion:** Werkstatt-Meister (Workshop Master)
+**Completion:** Workshop Master (Workshop Master)
 
 See full details: `docs/workshop/LEVEL-301.md`
 
 ---
 
-## Level 401 Sporen — Die Kunst der Optimierung
+## Level 401 Badges — Art of Optimization
 
-| Block | Sporn | Topic |
+| Block | Badge | Topic |
 |---|---|---|
-| 16 | **Tuner-Sporn** | Producer & Consumer Throughput Tuning |
-| 17 | **Ingenieur-Sporn** | Kafka Streams & RocksDB Optimization |
-| 18 | **Architekt-Sporn** | K8s Resource Tuning & JVM Optimization |
-| 19 | **Feldherr-Sporn** | Production Load Testing & Capacity Planning |
+| 16 | **Tuner Badge** | Producer & Consumer Throughput Tuning |
+| 17 | **Engineer Badge** | Kafka Streams & RocksDB Optimization |
+| 18 | **Architect Badge** | K8s Resource Tuning & JVM Optimization |
+| 19 | **Field Marshal Badge** | Production Load Testing & Capacity Planning |
 
-**Completion:** Grossmeister (Grand Master)
+**Completion:** Grand Master (Grand Master)
 
 See full details: `docs/workshop/LEVEL-401.md`
 
 ---
 
-## Complete Sporen Summary
+## Complete Badges Summary
 
 ```
-Level 101:  Bronzener → Silberner → Goldener → Eiserner → Stahlerner → Diamantener  = Meister-Sporn
-Level 201:  Schmied → Ritter → Prüfer → Melder                                       = Werkzeug-Meister
-Level 301:  Pipeline → Strategen → Lastprüfer → Kommandant → General                  = Werkstatt-Meister
-Level 401:  Tuner → Ingenieur → Architekt → Feldherr                                  = Grossmeister
+Level 101:  Bronze → Silver → Gold → Iron → Steel → Diamond  = Master Badge
+Level 201:  Smith → Knight → Inspector → Messenger                                       = Tool Master
+Level 301:  Pipeline → Strategist → Load Tester → Commander → General                  = Workshop Master
+Level 401:  Tuner → Engineer → Architect → Field Marshal                                  = Grand Master
 
-Total: 19 Blocks | 17 Sporen | 4 Mastery Levels | 3.5 Days
+Total: 19 Blocks | 17 Badges | 4 Mastery Levels | 3.5 Days
 ```
 
 ---
 
 ## Continuing Education
 
-After earning the Grossmeister, deepen your skills:
+After earning the Grand Master, deepen your skills:
 
 | Topic | Resource |
 |---|---|

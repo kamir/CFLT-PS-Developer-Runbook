@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
@@ -32,6 +34,7 @@ public class PaymentProducer {
     private static final Logger log = LoggerFactory.getLogger(PaymentProducer.class);
     private static final String TOPIC = "payments";
     private static final AtomicBoolean running = new AtomicBoolean(true);
+    private static final int DEFAULT_MAX_RECORDS = 250;
 
     public static void main(String[] args) {
         String mode = (args.length > 0) ? args[0] : "produce";
@@ -47,6 +50,7 @@ public class PaymentProducer {
     }
 
     public static void runProducer() {
+        int maxRecords = resolveMaxRecords();
         Properties props = ConfigLoader.load();
         props.putIfAbsent(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class.getName());
@@ -65,29 +69,27 @@ public class PaymentProducer {
         }));
 
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(props)) {
-            log.info("PaymentProducer started — sending to topic '{}'", TOPIC);
+            log.info("PaymentProducer started — sending to topic '{}' (maxRecords={})", TOPIC, maxRecords);
 
             int count = 0;
-            while (running.get()) {
+            while (running.get() && count < maxRecords) {
                 String txnId = UUID.randomUUID().toString();
                 String payment = buildPaymentJson(txnId, count);
 
+                int recordNumber = count + 1;
                 ProducerRecord<String, String> record =
                         new ProducerRecord<>(TOPIC, txnId, payment);
 
                 producer.send(record, (RecordMetadata meta, Exception ex) -> {
                     if (ex != null) {
-                        log.error("Failed to send payment txn_id={}", txnId, ex);
+                        log.error("Failed to send payment {}/{} txn_id={}", recordNumber, maxRecords, txnId, ex);
                     } else {
-                        log.info("Sent payment txn_id={} partition={} offset={}",
-                                txnId, meta.partition(), meta.offset());
+                        log.info("Sent payment {}/{} txn_id={} partition={} offset={}",
+                                recordNumber, maxRecords, txnId, meta.partition(), meta.offset());
                     }
                 });
 
                 count++;
-                if (count % 100 == 0) {
-                    log.info("Produced {} payment events so far", count);
-                }
                 Thread.sleep(500); // simulate real-world event cadence
             }
 
@@ -99,6 +101,19 @@ public class PaymentProducer {
         }
     }
 
+    private static int resolveMaxRecords() {
+        String fromEnv = System.getenv("DEMO_MAX_RECORDS");
+        if (fromEnv == null || fromEnv.isBlank()) {
+            return DEFAULT_MAX_RECORDS;
+        }
+        try {
+            int parsed = Integer.parseInt(fromEnv.trim());
+            return parsed > 0 ? parsed : DEFAULT_MAX_RECORDS;
+        } catch (NumberFormatException e) {
+            return DEFAULT_MAX_RECORDS;
+        }
+    }
+
     /**
      * Builds a JSON payment event with masked card number (PCI-DSS).
      * In production, use Avro + Schema Registry instead of raw JSON.
@@ -106,13 +121,15 @@ public class PaymentProducer {
     static String buildPaymentJson(String txnId, int sequence) {
         String[] regions = {"US-EAST", "US-WEST", "EU-WEST", "AP-SOUTH"};
         String[] merchants = {"MERCH-001", "MERCH-002", "MERCH-003", "MERCH-004"};
-        double amount = 10.00 + (sequence % 500) * 1.37;
+        BigDecimal amount = BigDecimal.valueOf(10.00)
+                .add(BigDecimal.valueOf(sequence % 500L).multiply(BigDecimal.valueOf(1.37)))
+                .setScale(2, RoundingMode.HALF_UP);
         String maskedCard = "****-****-****-" + String.format("%04d", (sequence % 9999) + 1);
 
         return String.format(
                 "{\"transaction_id\":\"%s\","
               + "\"card_number_masked\":\"%s\","
-              + "\"amount\":%.2f,"
+              + "\"amount\":%s,"
               + "\"currency\":\"USD\","
               + "\"merchant_id\":\"%s\","
               + "\"timestamp\":%d,"
@@ -120,9 +137,9 @@ public class PaymentProducer {
               + "\"region\":\"%s\"}",
                 txnId,
                 maskedCard,
-                amount,
+                amount.toPlainString(),
                 merchants[sequence % merchants.length],
-                Instant.now().toEpochMilli(),
+                Instant.now().getEpochSecond(),
                 regions[sequence % regions.length]
         );
     }
