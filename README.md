@@ -1,4 +1,7 @@
 # Confluent Java Toolkit
+![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Go](https://img.shields.io/badge/Go-1.22-00ADD8)
 
 Java developer toolkit for building, testing, and operating applications on **Confluent Cloud** with PCI-DSS compliance.
 
@@ -21,13 +24,19 @@ cd docker && docker-compose up -d broker schema-registry && cd ..
 # 3. Build
 mvn clean package -DskipTests
 
-# 4. Run producer
-java -Dapp.env=dev -jar producer-consumer-app/target/producer-consumer-app-1.0.0-SNAPSHOT.jar produce
+# 4. (Optional) Generate client.properties from .env
+./scripts/create-client-properties.sh
 
-# 5. Run KStreams fraud detection (another terminal)
-java -Dapp.env=dev -jar kstreams-app/target/kstreams-app-1.0.0-SNAPSHOT.jar
+# 5. Run producer (demo)
+make demo-produce
 
-# 6. Run tests
+# 6. Run KStreams processor (another terminal)
+make demo-process
+
+# 7. Run consumer (another terminal)
+make demo-consume
+
+# 8. Run tests
 mvn test
 ```
 

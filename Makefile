@@ -145,13 +145,6 @@ client-properties:                             ## Generate client.properties fro
 kshark-scan:                                   ## Run kshark against current cluster
 	KSHARK_TIMEOUT=120s ./scripts/kshark-scan.sh
 
-.PHONY: demos
-demos:                                         ## Build and run the producer/consumer demo
-	mvn -pl producer-consumer-app -am package -DskipTests -B --no-transfer-progress
-	@test -f "$(DEMO_PRODUCER_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_PRODUCER_JAR)" && exit 1)
-	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
-	KAFKA_CLIENT_PROPERTIES="$(CLIENT_PROPERTIES)" \
-	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_PRODUCER_JAR)" "$(DEMO_MODE)"
 
 .PHONY: demo-produce
 demo-produce:                                  ## Run demo producer (uses client.properties)
