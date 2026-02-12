@@ -56,7 +56,6 @@ See **[RUNBOOK.md](RUNBOOK.md)** for the complete Developer Runbook covering:
 Additional docs:
 - **[Course Structure](docs/COURSE_STRUCTURE.md)**
 - **[Tools Warmup](docs/TOOLS_WARMUP.md)**
-- **[Students 1st Actions](procedures/STUDENTS_1ST_ACTIONS.md)**
 
 ## License
 

@@ -49,6 +49,16 @@ The tool must ask these questions so the student can think ahead and capture int
 6. What would make this workshop a success for you?
 7. What is your GitHub handle (or preferred identifier)?
 
+## Tool Usage
+
+```bash
+./procedures/bin/student-intake.sh
+```
+
+Output:
+- `procedures/learners/<github-handle>/learners-state.md`
+- `procedures/learners/<github-handle>/coach-review.md`
+
 ## Coach Review (Asynchronous)
 
 - The coach reviews `learners-state.md` and provides a brief response.
