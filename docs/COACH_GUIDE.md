@@ -173,6 +173,8 @@ Create a dedicated Slack channel: `#workshop-confluent-dev-YYYY-MM`
 
 ## 👨‍🎓 Student Onboarding Procedure
 
+Before Day 1, ensure students complete the first critical steps in **[Students 1st Actions](../procedures/STUDENTS_1ST_ACTIONS.md)**.
+
 ### Day 1 - Morning (Before Starting Block 1)
 
 #### **Step 1: Welcome & Introduction (15 min)**
