@@ -53,6 +53,10 @@ See **[RUNBOOK.md](RUNBOOK.md)** for the complete Developer Runbook covering:
 - Developer toolbox (CLI tools, kcat, Schema Registry, K8s)
 - Troubleshooting & diagnostics guide
 
+Additional docs:
+- **[Course Structure](docs/COURSE_STRUCTURE.md)**
+- **[Tools Warmup](docs/TOOLS_WARMUP.md)**
+
 ## License
 
 Apache License 2.0 — see [LICENSE](LICENSE).
