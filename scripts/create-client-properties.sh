@@ -1,14 +1,50 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# create-client-properties.sh — Generate Kafka client.properties from .env
+# create-client-properties.sh — Generate Kafka client.properties
 #
 # Usage:
-#   ./scripts/create-client-properties.sh [output-file]
+#   ./scripts/create-client-properties.sh              # from .env → client.properties
+#   ./scripts/create-client-properties.sh -local        # → local.client.properties
 #   ENV_FILE=/path/to/.env ./scripts/create-client-properties.sh /tmp/client.properties
 # ==============================================================================
 set -euo pipefail
 
-OUT_FILE="${1:-client.properties}"
+LOCAL_MODE=false
+OUT_FILE=""
+
+for arg in "$@"; do
+    case "$arg" in
+        -local) LOCAL_MODE=true ;;
+        *)      OUT_FILE="$arg" ;;
+    esac
+done
+
+# ---------------------------------------------------------------------------
+# Local mode: generate local.client.properties for a local Kafka cluster
+# ---------------------------------------------------------------------------
+if $LOCAL_MODE; then
+    OUT_FILE="${OUT_FILE:-local.client.properties}"
+
+    LOCAL_BOOTSTRAP="${LOCAL_KAFKA_BOOTSTRAP_SERVERS:-localhost:9092}"
+    LOCAL_SR_URL="${LOCAL_SCHEMA_REGISTRY_URL:-http://localhost:8081}"
+
+    {
+        echo "# Local Kafka Cluster Connection"
+        echo "bootstrap.servers=$LOCAL_BOOTSTRAP"
+        echo "security.protocol=PLAINTEXT"
+        echo ""
+        echo "# Local Schema Registry Connection"
+        echo "schema.registry.url=$LOCAL_SR_URL"
+    } > "$OUT_FILE"
+
+    echo "Wrote $OUT_FILE"
+    exit 0
+fi
+
+# ---------------------------------------------------------------------------
+# Default mode: generate client.properties from .env
+# ---------------------------------------------------------------------------
+OUT_FILE="${OUT_FILE:-client.properties}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
