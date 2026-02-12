@@ -9,10 +9,15 @@ SHELL := /bin/bash
 PROJECT_VERSION  := 1.0.0-SNAPSHOT
 DOCKER_REGISTRY  := registry.example.com/confluent-ps
 KIND_CLUSTER     := kafka-dev
-CLIENT_PROPERTIES ?= $(abspath client.properties)
 DEMO_PRODUCER_JAR ?= producer-consumer-app/target/producer-consumer-app-$(PROJECT_VERSION).jar
 DEMO_STREAMS_JAR  ?= kstreams-app/target/kstreams-app-$(PROJECT_VERSION).jar
 DEMO_MODE         ?= produce
+
+ifdef LOCAL
+CLIENT_PROPERTIES ?= $(abspath local.client.properties)
+else
+CLIENT_PROPERTIES ?= $(abspath client.properties)
+endif
 
 # ---------- Build ----------
 .PHONY: build
@@ -137,6 +142,10 @@ diagnose:                                      ## Run full diagnostics
 client-properties:                             ## Generate client.properties from .env
 	./scripts/create-client-properties.sh
 
+.PHONY: local-client-properties
+local-client-properties:                       ## Generate local.client.properties for local Kafka
+	./scripts/create-client-properties.sh -local
+
 .PHONY: kshark-init
 kshark-init:                                   ## Install kshark into ./tools
 	./scripts/kshark-init.sh
@@ -149,8 +158,15 @@ kshark-scan:                                   ## Run kshark against current clu
 kshark-diag-ccloud:                             ## Diagnose Confluent Cloud resources for kshark
 	./scripts/kshark-diag-ccloud.sh
 
+# Helper: generate the right client.properties before demo runs
+ifdef LOCAL
+_DEMO_PROPS_TARGET := local-client-properties
+else
+_DEMO_PROPS_TARGET := client-properties
+endif
+
 .PHONY: demo-produce
-demo-produce:                                  ## Run demo producer (uses client.properties)
+demo-produce: $(_DEMO_PROPS_TARGET)            ## Run demo producer (LOCAL=1 for local Kafka)
 	mvn -pl producer-consumer-app -am package -DskipTests -B --no-transfer-progress
 	@test -f "$(DEMO_PRODUCER_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_PRODUCER_JAR)" && exit 1)
 	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
@@ -158,7 +174,7 @@ demo-produce:                                  ## Run demo producer (uses client
 	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_PRODUCER_JAR)" produce
 
 .PHONY: demo-consume
-demo-consume:                                  ## Run demo consumer (uses client.properties)
+demo-consume: $(_DEMO_PROPS_TARGET)            ## Run demo consumer (LOCAL=1 for local Kafka)
 	mvn -pl producer-consumer-app -am package -DskipTests -B --no-transfer-progress
 	@test -f "$(DEMO_PRODUCER_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_PRODUCER_JAR)" && exit 1)
 	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \
@@ -167,7 +183,7 @@ demo-consume:                                  ## Run demo consumer (uses client
 	java -Dclient.properties="$(CLIENT_PROPERTIES)" -jar "$(DEMO_PRODUCER_JAR)" consume
 
 .PHONY: demo-process
-demo-process:                                  ## Run demo Kafka Streams processor (uses client.properties)
+demo-process: $(_DEMO_PROPS_TARGET)            ## Run demo Kafka Streams processor (LOCAL=1 for local Kafka)
 	mvn -pl kstreams-app -am package -DskipTests -B --no-transfer-progress
 	@test -f "$(DEMO_STREAMS_JAR)" || (echo "[ERROR] Demo jar not found: $(DEMO_STREAMS_JAR)" && exit 1)
 	CLIENT_PROPERTIES_FILE="$(CLIENT_PROPERTIES)" \

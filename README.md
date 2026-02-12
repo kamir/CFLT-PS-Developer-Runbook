@@ -25,7 +25,7 @@ cd docker && docker-compose up -d broker schema-registry && cd ..
 mvn clean package -DskipTests
 
 # 4. (Optional) Generate client.properties from .env
-./scripts/create-client-properties.sh
+./scripts/create-client-properties.sh -local
 
 # 5. Run producer (demo)
 make demo-produce
@@ -35,10 +35,11 @@ make demo-process
 
 # 7. Run consumer (another terminal)
 make demo-consume
-
-# 8. Run tests
-mvn test
 ```
+
+## Scripts
+
+See **[scripts/README.md](scripts/README.md)** for documentation of all automation scripts (infrastructure setup, diagnostics, workshop validation, coach tools, QA checklist generation).
 
 ## Documentation
 

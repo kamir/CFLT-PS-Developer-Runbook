@@ -1,0 +1,50 @@
+# Add ecosystem tools
+
+## Kafka Backup
+
+https://github.com/osodevops/kafka-backup
+
+kafka-backup is a production-grade tool written in Rust for backing up and restoring Apache Kafka topics to cloud storage or local filesystem. It supports point-in-time recovery (PITR) with millisecond precision and solves the consumer group offset discontinuity problem when restoring to different clusters.
+
+Features
+Multi-cloud storage — S3, Azure Blob, GCS, or local filesystem
+Point-in-time recovery — Restore to any millisecond within your backup window
+Consumer offset recovery — Automatically reset consumer group offsets after restore
+High performance — 100+ MB/s throughput with zstd/lz4 compression
+Incremental backups — Resume from where you left off
+Topic filtering — Wildcard patterns for include/exclude
+Deployment agnostic — Bare metal, VM, Docker, or Kubernetes
+
+## kafka-perf-test
+
+Professional benchmarking tools for Apache Kafka - measure producer and consumer performance with beautiful HTML reports.
+
+https://github.com/mordp1/kafka-perf-test
+
+## Kafka TX-Inspection
+
+## My Confluent Cloud Examples
+
+https://github.com/kamir/CFLT-PS-CCLOUD-DEMOs
+
+## CP-All-In-One
+
+https://github.com/confluentinc/cp-all-in-one
+
+## CFK Examples
+
+This GitHub repository accompanies the official Confluent for Kubernetes documentation.
+This repository contains scenario workflows to deploy and manage Confluent on Kubernetes for various use cases.
+
+https://github.com/confluentinc/confluent-kubernetes-examples
+
+## CFLT Terraform Provider
+
+https://github.com/confluentinc/terraform-provider-confluent
+
+
+## Tableflow Terraform Demo
+
+This project contains Terraform scripts to provision and configure a modern data pipeline using Confluent Cloud, AWS, and (optionally) Databricks and Snowflake. It automates the creation of Kafka topics, IAM roles, S3 buckets, and all necessary integrations for Tableflow and streaming analytics.
+
+https://github.com/confluentinc/tableflow-terraform-demo
